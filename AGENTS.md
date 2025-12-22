@@ -9,11 +9,16 @@ These instructions apply to the entire repo unless a more specific `AGENTS.md` e
 - Keep the site **simple, professional, monochrome**, and intentionally **unstyled** (minimal decoration).
 - Prefer clarity and content over effects.
 
+## Contexts (Read When Needed)
+
+- Use `AGENT_CONTEXTS/` as a dumping ground for any extra context (design notes, content drafts, screenshots-as-text, references, etc.).
+- The file `AGENT_CONTEXTS/style-guideline.md` captures the desired **vibe** of the site (a textual description of a reference image). Use it as a north star when making layout, typography, and component styling decisions.
+
 ## UI + Styling Rules
 
 - Use **shadcn/ui** components for UI building blocks.
 - **Do not** make one-off style tweaks at call sites (e.g. avoid sprinkling random Tailwind classes on each button instance).
-- Customize appearance by editing the **underlying component files** (e.g. `components/ui/button.tsx`) so that global style changes happen in one place.
+- Customize appearance by editing the **underlying component files** (e.g. `src/components/ui/button.tsx`) so that global style changes happen in one place.
 - Keep shadcn component APIs intact; only adjust their internal styling and tokens.
 - Prefer theme tokens / design tokens (CSS variables) over hard-coded colors.
 - Keep everything monochrome unless/until explicitly requested otherwise.
