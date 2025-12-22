@@ -28,6 +28,7 @@ These instructions apply to the entire repo unless a more specific `AGENTS.md` e
 - Keep changes small and focused; avoid unrelated refactors.
 - Favor server components by default; only use client components when needed.
 - When adding new dependencies, justify why; prefer the lightest solution.
+- Use **Biome** as the formatter (see `biome.json`).
 
 ## Cloudflare / OpenNext Notes
 
