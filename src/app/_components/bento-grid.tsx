@@ -55,12 +55,12 @@ export function BentoGrid() {
 				{/* Mobile: Square (1:1), Desktop: Square (1:1) - Placed first for mobile order */}
 				<BentoCell className="aspect-square p-0! md:col-span-5 md:col-start-6">
 					<div className="relative h-full w-full rounded-lg bg-background p-2.5">
-						<div className="relative h-full w-full overflow-hidden rounded-md bg-card">
+						<div className="relative h-full w-full overflow-hidden rounded-md">
 							<Image
-								src="/kirby-headshot.png"
+								src="/headshot.webp"
 								alt="Profile picture"
 								fill
-								className="object-cover"
+								className="bg-card object-cover"
 							/>
 						</div>
 					</div>
