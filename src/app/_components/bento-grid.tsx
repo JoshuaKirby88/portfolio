@@ -85,6 +85,21 @@ export function BentoGrid() {
 								</li>
 							))}
 						</ul>
+
+						<div className="mt-4 -mr-2 -mb-2 flex justify-end space-x-2 font-medium text-muted-foreground">
+							{content.me.links.map((link) => (
+								<Link
+									key={link.name}
+									href={link.href}
+									download={link.download}
+									target="_blank"
+									className="flex items-center space-x-1 rounded-full border bg-background px-3 py-0.5 text-sm hover:underline"
+								>
+									<link.icon className="size-3.5" />
+									<span>{link.name}</span>
+								</Link>
+							))}
+						</div>
 					</BentoCell>
 
 					<BentoCell className="h-full space-y-1.5">

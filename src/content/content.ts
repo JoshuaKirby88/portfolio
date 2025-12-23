@@ -1,12 +1,27 @@
+import { DownloadIcon, LinkIcon, MailIcon } from "lucide-react"
+
 export const content = {
 	tagline: `I build reliable AI products
 end to end.`,
 	me: {
 		name: "Joshua Kirby",
 		bullets: [
-			"Based in Birmingham",
 			"Full‑stack TypeScript / Next.js with LLM‑backed products",
 			"Native in Japanese and English",
+		],
+		links: [
+			{ name: "Email", icon: MailIcon, href: "mailto:jojokirby88@gmail.com" },
+			{
+				name: "LinkedIn",
+				icon: LinkIcon,
+				href: "https://www.linkedin.com/in/joshua-h-kirby/",
+			},
+			{
+				name: "CV",
+				icon: DownloadIcon,
+				href: "/JoshuaKirbyCV.pdf",
+				download: "JoshuaKirbyCV.pdf",
+			},
 		],
 	},
 	description: `I’m a 2nd‑year AI & CS student with experience shipping production LLM tools, including an automated conversational placement test.
