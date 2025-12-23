@@ -17,7 +17,7 @@ function BentoCell({
 	return (
 		<div
 			className={cn(
-				"relative overflow-hidden rounded-xl border bg-card p-6",
+				"relative overflow-hidden rounded-xl border bg-card p-5 lg:p-6",
 				className,
 			)}
 			{...props}
@@ -53,7 +53,7 @@ export function BentoGrid() {
 		<div className="container mx-auto max-w-4xl p-4">
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-10">
 				{/* Mobile: Square (1:1), Desktop: Square (1:1) - Placed first for mobile order */}
-				<BentoCell className="aspect-square p-0 md:col-span-5 md:col-start-6">
+				<BentoCell className="aspect-square p-0! md:col-span-5 md:col-start-6">
 					<div className="relative h-full w-full rounded-lg bg-background p-2.5">
 						<div className="relative h-full w-full overflow-hidden rounded-md bg-card">
 							<Image
@@ -69,12 +69,14 @@ export function BentoGrid() {
 				{/* Top Section: 2 cells on the left side vertically - Placed second but forced to row 1 on desktop */}
 				<div className="grid h-full grid-rows-[auto_1fr] gap-4 md:col-span-5 md:row-start-1">
 					<BentoCell>
-						<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
-							<SmileIcon className="size-5" />
+						<div className="flex items-center gap-4 lg:flex-col lg:items-start">
+							<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
+								<SmileIcon className="size-5" />
+							</div>
+							<p className="font-bold text-lg">{content.me.name}</p>
 						</div>
-						<p className="mt-2 font-bold text-lg">{content.me.name}</p>
 
-						<ul className="mt-2 space-y-2">
+						<ul className="mt-3 space-y-2 lg:mt-2">
 							{content.me.bullets.map((bullet) => (
 								<li
 									key={bullet}
@@ -86,7 +88,7 @@ export function BentoGrid() {
 							))}
 						</ul>
 
-						<div className="mt-4 -mr-2 -mb-2 flex justify-end space-x-2 font-medium text-muted-foreground">
+						<div className="mt-4 -mr-2 -mb-2 flex items-end justify-end space-x-2 font-medium text-muted-foreground">
 							{content.me.links.map((link) => (
 								<Link
 									key={link.name}
