@@ -1,5 +1,9 @@
+import { GithubIcon } from "lucide-react"
+import Link from "next/link"
 import { BentoGrid } from "@/app/_components/bento-grid"
+import { buttonVariants } from "@/components/ui/button"
 import { content } from "@/content/content"
+import { cn } from "@/lib/utils"
 
 export default function Page() {
 	return (
@@ -9,6 +13,20 @@ export default function Page() {
 			</h1>
 
 			<BentoGrid />
+
+			<p className="mt-20 mb-10 text-center text-muted-foreground text-xs">
+				<Link
+					href="https://github.com/JoshuaKirby88/portfolio"
+					className={cn(
+						buttonVariants({ variant: "link" }),
+						"text-muted-foreground",
+					)}
+					target="_blank"
+				>
+					<GithubIcon className="size-3.5" />
+					View site source
+				</Link>
+			</p>
 		</div>
 	)
 }
