@@ -60,6 +60,9 @@ export function BentoGrid() {
 								src="/headshot.webp"
 								alt="Profile picture"
 								fill
+								priority
+								unoptimized
+								sizes="(min-width: 1024px) 512px, (min-width: 768px) 50vw, 100vw"
 								className="bg-card object-cover"
 							/>
 						</div>
