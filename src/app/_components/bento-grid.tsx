@@ -6,7 +6,7 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
-import { content } from "@/content/content"
+import { homeContent } from "@/content/home-content"
 import { cn } from "@/lib/utils"
 
 function BentoCell({
@@ -76,11 +76,11 @@ export function BentoGrid() {
 							<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
 								<SmileIcon className="size-5" />
 							</div>
-							<p className="font-bold text-lg">{content.me.name}</p>
+							<p className="font-bold text-lg">{homeContent.me.name}</p>
 						</div>
 
 						<ul className="mt-3 space-y-2 lg:mt-2">
-							{content.me.bullets.map((bullet) => (
+							{homeContent.me.bullets.map((bullet) => (
 								<li
 									key={bullet}
 									className="relative pl-4 font-medium text-muted-foreground text-sm"
@@ -92,7 +92,7 @@ export function BentoGrid() {
 						</ul>
 
 						<div className="mt-4 -mr-2 -mb-2 flex items-end justify-end space-x-2 font-medium text-muted-foreground">
-							{content.me.links.map((link) => (
+							{homeContent.me.links.map((link) => (
 								<Link
 									key={link.name}
 									href={link.href}
@@ -108,7 +108,7 @@ export function BentoGrid() {
 					</BentoCell>
 
 					<BentoCell className="h-full space-y-1.5">
-						{content.description.split("\n").map((line) => (
+						{homeContent.description.split("\n").map((line) => (
 							<p
 								key={line}
 								className="whitespace-pre-wrap font-medium text-muted-foreground text-sm"
@@ -125,11 +125,11 @@ export function BentoGrid() {
 						<BriefcaseBusinessIcon className="size-5" />
 					</div>
 					<p className="mt-4 font-bold text-lg">
-						{content.workExperience.title}
+						{homeContent.workExperience.title}
 					</p>
 
 					<ul className="mt-4 space-y-3">
-						{content.workExperience.experiences.map((experience) => (
+						{homeContent.workExperience.experiences.map((experience) => (
 							<li key={experience.name} className="relative space-y-0.5 pl-5">
 								<BigBullet className="absolute top-[0.55em] left-0" />
 								<div className="flex items-baseline">
@@ -150,10 +150,12 @@ export function BentoGrid() {
 					<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
 						<GraduationCapIcon className="size-5" />
 					</div>
-					<p className="mt-4 font-bold text-lg">{content.education.title}</p>
+					<p className="mt-4 font-bold text-lg">
+						{homeContent.education.title}
+					</p>
 
 					<ul className="mt-2 space-y-2">
-						{content.education.educations.map((education) => (
+						{homeContent.education.educations.map((education) => (
 							<li key={education.name}>
 								<p className="font-semibold">{education.name}</p>
 								<ul className="mt-2 space-y-1">
@@ -173,7 +175,7 @@ export function BentoGrid() {
 				</BentoCell>
 
 				{/* Bottom Section: 2 cells horizontally */}
-				{content.projects.map((project) => (
+				{homeContent.projects.map((project) => (
 					<BentoCell
 						key={project.title}
 						className="flex h-fit flex-col md:col-span-5 md:h-78"
