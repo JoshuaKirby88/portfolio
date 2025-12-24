@@ -56,7 +56,7 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 	projects: [
 		{
 			title: "GenkiJACS Internship",
-			path: "genkijacs",
+			href: "/genkijacs",
 			bullets: [
 				"Production RAG chatbot handling ~10,000 messages from ~2,000 users across two school websites.",
 				"Zero‑maintenance scraping pipeline that updates the vector database and provides analytics to guide site improvements.",
@@ -65,7 +65,7 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 		},
 		{
 			title: "AI Conversational Placement Test",
-			path: "placement-test",
+			href: "/placement-test",
 			bullets: [
 				"Models a real teacher’s placement workflow from asking questions to final level decisions.",
 				"Produces a clear, auditable chapter‑level recommendation that makes placement faster and more consistent.",

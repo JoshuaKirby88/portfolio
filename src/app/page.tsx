@@ -160,7 +160,7 @@ export default function Page() {
 								))}
 							</ul>
 							<Link
-								href={project.path}
+								href={project.href}
 								className={cn(
 									buttonVariants(),
 									"mt-2 ml-auto w-fit rounded-xl border-2 border-ring px-3.5 py-4.5",
