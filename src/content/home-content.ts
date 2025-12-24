@@ -1,6 +1,6 @@
 import { DownloadIcon, LinkIcon, MailIcon } from "lucide-react"
 
-export const content = {
+export const homeContent = {
 	tagline: `I build reliable AI products
 end to end.`,
 	me: {

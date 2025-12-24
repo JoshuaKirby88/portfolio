@@ -2,14 +2,14 @@ import { GithubIcon } from "lucide-react"
 import Link from "next/link"
 import { BentoGrid } from "@/app/_components/bento-grid"
 import { buttonVariants } from "@/components/ui/button"
-import { content } from "@/content/content"
+import { homeContent } from "@/content/home-content"
 import { cn } from "@/lib/utils"
 
 export default function Page() {
 	return (
 		<div>
 			<h1 className="mt-20 mb-10 whitespace-pre-wrap text-center font-semibold text-2xl">
-				{content.tagline}
+				{homeContent.tagline}
 			</h1>
 
 			<BentoGrid />
