@@ -7,13 +7,13 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
-import { homeContent } from "@/content/home-content"
+import { homeContent } from "@/content/home"
 import { cn } from "@/lib/utils"
 
 export default function Page() {
 	return (
 		<div>
-			<h1 className="mt-20 mb-10 whitespace-pre-wrap text-center font-semibold text-2xl">
+			<h1 className="mt-30 mb-10 whitespace-pre-wrap text-center font-semibold text-2xl">
 				{homeContent.tagline}
 			</h1>
 
@@ -46,7 +46,7 @@ export default function Page() {
 								<p className="font-bold text-lg">{homeContent.me.name}</p>
 							</div>
 
-							<ul className="mt-3 space-y-2 lg:mt-2">
+							<ul className="mt-4 space-y-2 lg:mt-2">
 								{homeContent.me.bullets.map((bullet) => (
 									<li
 										key={bullet}
@@ -121,7 +121,7 @@ export default function Page() {
 							{homeContent.education.title}
 						</p>
 
-						<ul className="mt-2 space-y-2">
+						<ul className="mt-4 space-y-2">
 							{homeContent.education.educations.map((education) => (
 								<li key={education.name}>
 									<p className="font-semibold">{education.name}</p>
@@ -145,10 +145,10 @@ export default function Page() {
 					{homeContent.projects.map((project) => (
 						<BentoCell
 							key={project.title}
-							className="flex h-fit flex-col md:col-span-5 md:h-78"
+							className="flex h-fit flex-col md:col-span-5 md:h-82"
 						>
 							<p className="font-bold text-lg">{project.title}</p>
-							<ul className="mt-2 flex-1 space-y-1.5">
+							<ul className="mt-4 flex-1 space-y-1.5">
 								{project.bullets.map((bullet) => (
 									<li
 										key={bullet}

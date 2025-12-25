@@ -32,6 +32,14 @@
 					"level": "info",
 					"fix": "safe"
 				}
+			},
+			"suspicious": {
+				"noExplicitAny": {
+					"level": "off"
+				},
+				"noArrayIndexKey": {
+					"level": "off"
+				}
 			}
 		},
 		"domains": {
