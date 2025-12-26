@@ -6,7 +6,12 @@ import { StatusBadge } from "./status-badge"
 const DURATION = 8000
 const PROPORTIONS = [0.2, 0.25, 0.55]
 
-export function WebsiteContentProcess() {
+export function WebsiteContentProcess(props: {
+	url: string
+	match: string
+	topneighbour: string
+	bottomneighbour: string
+}) {
 	const styles = `
 .a-neighbor-up {
 	animation: k-neighbor-up ${DURATION}ms cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
@@ -70,8 +75,9 @@ export function WebsiteContentProcess() {
 			/>
 
 			<ChunkCard
+				url={props.url}
 				index={2}
-				content="At Genki, we believe you can't learn a language using only a textbook. You need to feel it, use it, ..."
+				content={props.topneighbour}
 				slideAnimation="a-neighbor-up"
 			/>
 
@@ -79,29 +85,24 @@ export function WebsiteContentProcess() {
 				<ArrowUp className="size-4" />
 			</div>
 
-			<ChunkCard
-				index={3}
-				content="... live it. That's why we focus not just on teaching you the basics of grammar, ..."
-			/>
+			<ChunkCard url={props.url} index={3} content={props.match} />
 
 			<div className="a-connector flex h-4 flex-col items-center text-muted-foreground/50">
 				<ArrowDown className="size-4" />
 			</div>
 
 			<ChunkCard
+				url={props.url}
 				index={4}
-				content="... but also on how to live in Japan and communicate with real Japanese people."
+				content={props.bottomneighbour}
 				slideAnimation="a-neighbor-down"
 			/>
 		</div>
 	)
 }
 
-function ChunkCard({
-	index,
-	content,
-	slideAnimation,
-}: {
+function ChunkCard(props: {
+	url: string
 	index: number
 	content: string
 	slideAnimation?: string
@@ -110,22 +111,22 @@ function ChunkCard({
 		<div
 			className={cn(
 				"grid h-fit w-full max-w-[320px] grid-cols-1 rounded-xl border bg-background p-3 font-medium text-xs",
-				slideAnimation,
+				props.slideAnimation,
 			)}
 		>
 			<div className="a-meta col-start-1 row-start-1 flex flex-col justify-center gap-1.5">
 				<div className="flex items-center gap-2">
 					<LinkIcon className="size-3" />
-					<div>genkijacs.com</div>
+					<div>{props.url}</div>
 				</div>
 				<div className="flex items-center gap-2">
 					<HashIcon className="size-3" />
-					<div>{index}</div>
+					<div>{props.index}</div>
 				</div>
 			</div>
 
 			<div className="a-text col-start-1 row-start-1 leading-relaxed">
-				{content}
+				{props.content}
 			</div>
 		</div>
 	)

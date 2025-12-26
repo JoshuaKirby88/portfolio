@@ -63,7 +63,7 @@ The matches returned are split into two groups: **Website Content** and **Staff 
 **For Website Content**, I pull in the neighboring chunks around each match.
 This creates a sliding window effect, ensuring the model gets a complete, coherent passage rather than just a fragmented sentence.
 
-<websitecontentprocess></websitecontentprocess>
+<websitecontentprocess url="genkijacs.com" match="... live it. That's why we focus not just on teaching you the basics of grammar, ..." topneighbour="At Genki, we believe you can't learn a language using only a textbook. You need to feel it, use it, ..." bottomneighbour="... but also on how to live in Japan and communicate with real Japanese people." ></websitecontentprocess>
 
 **For Staff Notes**, if I simply sorted them by score, they often got buried in the middle of the context.
 To fix this, I placed them near the end of the prompt to ensure they take precedence over any conflicting **Website Content**.
