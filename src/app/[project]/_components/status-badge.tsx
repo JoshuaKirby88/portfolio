@@ -1,8 +1,8 @@
 import type * as React from "react"
 import { useId } from "react"
+import { Badge } from "@/components/ui/badge"
 import { getOnOffCycleCSS } from "@/lib/get-on-off-cycle-css"
 import { cn } from "@/lib/utils"
-import { Badge } from "./ui/badge"
 
 export function StatusBadge(props: {
 	steps: string[]
