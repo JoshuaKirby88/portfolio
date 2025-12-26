@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowUp, HashIcon, Link as LinkIcon } from "lucide-react"
-import { StatusBadge } from "@/components/status-badge"
-import { StatusDots } from "@/components/status-dots"
+import { StatusDots } from "@/app/[project]/_components/status-dots"
 import { cn } from "@/lib/utils"
+import { StatusBadge } from "./status-badge"
 
 const DURATION = 8000
 const PROPORTIONS = [0.2, 0.25, 0.55]
