@@ -19,7 +19,6 @@ export default function Page() {
 
 			<div className="container mx-auto max-w-4xl p-4">
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-10">
-					{/* Mobile: Square (1:1), Desktop: Square (1:1) - Placed first for mobile order */}
 					<BentoCell className="aspect-square p-0! md:col-span-5 md:col-start-6">
 						<div className="relative h-full w-full rounded-lg bg-background p-2.5">
 							<div className="relative h-full w-full overflow-hidden rounded-md">
@@ -36,7 +35,6 @@ export default function Page() {
 						</div>
 					</BentoCell>
 
-					{/* Top Section: 2 cells on the left side vertically - Placed second but forced to row 1 on desktop */}
 					<div className="grid h-full grid-rows-[auto_1fr] gap-4 md:col-span-5 md:row-start-1">
 						<BentoCell>
 							<div className="flex items-center gap-4 lg:flex-col lg:items-start">
@@ -86,7 +84,6 @@ export default function Page() {
 						</BentoCell>
 					</div>
 
-					{/* Middle Section: 2 cells horizontally, left one wider */}
 					<BentoCell className="h-64 md:col-span-6">
 						<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
 							<BriefcaseBusinessIcon className="size-5" />
@@ -141,7 +138,6 @@ export default function Page() {
 						</ul>
 					</BentoCell>
 
-					{/* Bottom Section: 2 cells horizontally */}
 					{homeContent.projects.map((project) => (
 						<BentoCell
 							key={project.title}
