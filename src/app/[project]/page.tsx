@@ -1,3 +1,5 @@
+import { homeContent } from "@/content/home"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React from "react"
 import ReactMarkdown from "react-markdown"
@@ -10,7 +12,31 @@ import { WebsiteContentProcess } from "./_components/website-content-process"
 const projects = ["genkijacs", "placement-test"]
 
 export function generateStaticParams() {
-	return projects.map((slug) => ({ slug }))
+	return projects.map((slug) => ({ project: slug }))
+}
+
+export async function generateMetadata(props: {
+	params: Promise<{ project: string }>
+}): Promise<Metadata> {
+	const params = await props.params
+	const projectSlug = params.project
+	const project = homeContent.projects.find((p) => p.href === `/${projectSlug}`)
+
+	if (!project) {
+		return {
+			title: "Project Not Found",
+		}
+	}
+
+	return {
+		title: project.title,
+		description: project.bullets[0],
+		openGraph: {
+			title: `${project.title} | Joshua Kirby`,
+			description: project.bullets[0],
+			url: `https://joshuakirby.webcam/${projectSlug}`,
+		},
+	}
 }
 
 export default async function Page(props: {
