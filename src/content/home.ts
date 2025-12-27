@@ -27,7 +27,7 @@ end to end.`,
 	description: `I’m a 2nd‑year AI & CS student with experience shipping production LLM tools, including an automated conversational placement test.
 I like taking ambiguous ideas and turning them into reliable AI products.`,
 	workExperience: {
-		title: "Work Experiences",
+		title: "Work Experience",
 		experiences: [
 			{
 				name: "GenkiJACS",
