@@ -57,6 +57,7 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 		{
 			title: "GenkiJACS Internship",
 			href: "/genkijacs",
+			image: "/projects/genkijacs.webp",
 			bullets: [
 				"RAG chatbot handling **10,000+ messages** from **2,000+ users**, saving **~70 staff‑hours/week**.",
 				"**Zero‑maintenance** scraping pipeline that provides analytics to guide site improvements.",
@@ -66,6 +67,7 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 		{
 			title: "AI Conversational Placement Test",
 			href: "/placement-test",
+			image: "/projects/placement-test.webp",
 			bullets: [
 				"Cut the placement process from **2 weeks** to **30 minutes** by replacing manual Zoom interviews.",
 				"Digitised a senior teacher's evaluation process using an **agentic workflow** to accurately assess the student's grammar limits.",

@@ -34,6 +34,20 @@ export async function generateMetadata(props: {
 			title: `${project.title} | Joshua Kirby`,
 			description: project.bullets[0],
 			url: `https://joshuakirby.webcam/${params.project}`,
+			images: [
+				{
+					url: project.image,
+					width: 1200,
+					height: 630,
+					alt: project.title,
+				},
+			],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: `${project.title} | Joshua Kirby`,
+			description: project.bullets[0],
+			images: [project.image],
 		},
 	}
 }
