@@ -12,6 +12,20 @@ const nextConfig: NextConfig = {
 		return config
 	},
 	eslint: { ignoreDuringBuilds: true },
+	async redirects() {
+		return [
+			"/cv",
+			"/resume",
+			"/curriculum-vitae",
+			"/pdf",
+			"/cv.pdf",
+			"/resume.pdf",
+		].map((source) => ({
+			source,
+			destination: "/Joshua_Kirby_CV.pdf",
+			permanent: true,
+		}))
+	},
 }
 
 export default nextConfig
