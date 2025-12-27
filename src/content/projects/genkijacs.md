@@ -14,7 +14,7 @@ I independently designed, built, and operated a production RAG chatbot and staff
 
 - **Support workload:** Sales staff were drowning in repetitive emails, even though most answers were sitting right there on the website.
 - **Student experience:** Prospective students often hit a wall during key decision windows, waiting hours or days for a reply.
-- **Visibility:** The team had little insight into what students were actually asking, making it hard to spot the friction points blocking enrollment.
+- **Visibility:** The team had little insight into what students were actually asking, making it hard to spot the friction points blocking enrolment.
 
 ### 2. Solution
 
@@ -33,7 +33,7 @@ At a high level, the system has three moving parts:
 #### The Conversation Pipeline
 
 The process begins by checking the user's question against [OpenAI’s moderations API](https://platform.openai.com/docs/api-reference/moderations) to make sure it's safe to answer.
-Once cleared, I rephrase the question to optimize it for retrieval.
+Once cleared, I rephrase the question to optimise it for retrieval.
 This is because raw user queries are often messy or incomplete.
 
 First, I inject school-specific keywords.
@@ -60,7 +60,7 @@ With the query polished, I [embed](https://platform.openai.com/docs/guides/embed
 
 The matches returned are split into two groups: **Website Content** and **Staff Notes**.
 
-**For Website Content**, I pull in the neighboring chunks around each match.
+**For Website Content**, I pull in the neighbouring chunks around each match.
 This creates a sliding window effect, ensuring the model gets a complete, coherent passage rather than just a fragmented sentence.
 
 <websitecontentprocess url="genkijacs.com" match="... live it. That's why we focus not just on teaching you the basics of grammar, ..." topneighbour="At Genki, we believe you can't learn a language using only a textbook. You need to feel it, use it, ..." bottomneighbour="... but also on how to live in Japan and communicate with real Japanese people." ></websitecontentprocess>
@@ -113,7 +113,7 @@ In practice, this meant owning the full stack:
 2.  **Backend:** The APIs and data pipeline for scraping.
 3.  **Ops:** Deployment and operations on AWS.
 
-I worked in short loops with the staff, analyzing real conversation logs to guide development.
+I worked in short loops with the staff, analysing real conversation logs to guide development.
 This iterative process led to key features like **Staff Notes** to handle edge cases, and a **smart handoff feature** that detects high-stakes topics like pricing and offers a one-click email button instead of letting the bot guess.
 
 ### 5. Impact & business value
