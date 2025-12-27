@@ -1,10 +1,10 @@
-import { homeContent } from "@/content/home"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React from "react"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import remarkBreaks from "remark-breaks"
+import { homeContent } from "@/content/home"
 import { AddConversationContext } from "./_components/add-conversation-context"
 import { AddKeywords } from "./_components/add-keywords"
 import { WebsiteContentProcess } from "./_components/website-content-process"
@@ -19,13 +19,12 @@ export async function generateMetadata(props: {
 	params: Promise<{ project: string }>
 }): Promise<Metadata> {
 	const params = await props.params
-	const projectSlug = params.project
-	const project = homeContent.projects.find((p) => p.href === `/${projectSlug}`)
+	const project = homeContent.projects.find(
+		(p) => p.href === `/${params.project}`,
+	)
 
 	if (!project) {
-		return {
-			title: "Project Not Found",
-		}
+		throw new Error("Project not found")
 	}
 
 	return {
@@ -34,7 +33,7 @@ export async function generateMetadata(props: {
 		openGraph: {
 			title: `${project.title} | Joshua Kirby`,
 			description: project.bullets[0],
-			url: `https://joshuakirby.webcam/${projectSlug}`,
+			url: `https://joshuakirby.webcam/${params.project}`,
 		},
 	}
 }

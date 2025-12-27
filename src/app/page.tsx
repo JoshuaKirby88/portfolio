@@ -6,6 +6,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import ReactMarkdown from "react-markdown"
 import { buttonVariants } from "@/components/ui/button"
 import { homeContent } from "@/content/home"
 import { cn } from "@/lib/utils"
@@ -151,7 +152,7 @@ export default function Page() {
 										className="relative pl-4 font-medium text-muted-foreground text-sm"
 									>
 										<SmallBullet className="absolute top-[0.55em] left-0" />
-										{bullet}
+										<ReactMarkdown>{bullet}</ReactMarkdown>
 									</li>
 								))}
 							</ul>
