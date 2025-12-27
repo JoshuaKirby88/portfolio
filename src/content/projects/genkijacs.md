@@ -61,7 +61,8 @@ With the query polished, I [embed](https://platform.openai.com/docs/guides/embed
 The matches returned are split into two groups: **Website Content** and **Staff Notes**.
 
 **For Website Content**, I pull in the neighbouring chunks around each match.
-This creates a sliding window effect, ensuring the model gets a complete, coherent passage rather than just a fragmented sentence.
+This creates a "sliding window" effect, providing the model with complete, coherent passages.
+This significantly reduces **hallucination rates** by ensuring answers are grounded in full context rather than fragmented sentences.
 
 <websitecontentprocess url="genkijacs.com" match="... live it. That's why we focus not just on teaching you the basics of grammar, ..." topneighbour="At Genki, we believe you can't learn a language using only a textbook. You need to feel it, use it, ..." bottomneighbour="... but also on how to live in Japan and communicate with real Japanese people." ></websitecontentprocess>
 
