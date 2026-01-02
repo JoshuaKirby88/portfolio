@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import React from "react"
 import ReactMarkdown from "react-markdown"
@@ -83,6 +84,15 @@ export default async function Page(props: {
 								return <div {...rest}>{children}</div>
 							}
 							return <p {...rest}>{children}</p>
+						},
+						a: (props: any) => {
+							const isExternal = props.href.startsWith("https://")
+							if (isExternal) {
+								return (
+									<a {...props} target="_blank" rel="noopener noreferrer" />
+								)
+							}
+							return <Link {...props} />
 						},
 						nextimage: (props: any) => <Image {...props} />,
 						addkeywords: (props: any) => <AddKeywords {...props} />,
