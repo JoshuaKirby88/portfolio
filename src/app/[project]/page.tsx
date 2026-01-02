@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import React from "react"
 import ReactMarkdown from "react-markdown"
@@ -7,6 +8,7 @@ import remarkBreaks from "remark-breaks"
 import { homeContent } from "@/content/home"
 import { AddConversationContext } from "./_components/add-conversation-context"
 import { AddKeywords } from "./_components/add-keywords"
+import { ChatbotImages } from "./_components/chatbot-images"
 import { WebsiteContentProcess } from "./_components/website-content-process"
 
 const projects = ["genkijacs", "placement-test"]
@@ -82,10 +84,12 @@ export default async function Page(props: {
 							}
 							return <p {...rest}>{children}</p>
 						},
+						nextimage: (props: any) => <Image {...props} />,
 						addkeywords: (props: any) => <AddKeywords {...props} />,
 						addconversationcontext: (props: any) => (
 							<AddConversationContext {...props} />
 						),
+						chatbotimages: (props: any) => <ChatbotImages {...props} />,
 						websitecontentprocess: (props: any) => (
 							<WebsiteContentProcess {...props} />
 						),
