@@ -1,5 +1,8 @@
 ## GenkiJACS 1-year internship
 
+<chatbotimages images='[{"src": "/genkijacs/genkijacs-chatbot.webp", "alt": "GenkiJACS Chatbot"}, {"src": "/genkijacs/nagoya-chatbot.webp", "alt": "Nagoya Chatbot"}]'></chatbotimages>
+<br />
+
 I independently designed, built, and operated a production RAG chatbot and staff portal for [GenkiJACS](https://www.genkijacs.com/) (Japanese language school).
 
 - **Role:** Software Engineer Intern (sole engineer, part-time)
