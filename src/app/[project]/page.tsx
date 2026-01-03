@@ -6,6 +6,7 @@ import React from "react"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import remarkBreaks from "remark-breaks"
+import remarkGfm from "remark-gfm"
 import { homeContent } from "@/content/home"
 import { AddConversationContext } from "./_components/add-conversation-context"
 import { AddKeywords } from "./_components/add-keywords"
@@ -70,7 +71,7 @@ export default async function Page(props: {
 	return (
 		<article className="prose prose-neutral dark:prose-invert container mx-auto max-w-4xl px-4 py-20">
 			<ReactMarkdown
-				remarkPlugins={[remarkBreaks]}
+				remarkPlugins={[remarkBreaks, remarkGfm]}
 				rehypePlugins={[rehypeRaw]}
 				components={
 					{
