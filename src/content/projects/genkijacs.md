@@ -76,6 +76,21 @@ Finally, I construct the prompt using a **system message**, the **assembled cont
 
 The model generates a reply in the user's original language, and I stream that answer back with clickable links.
 
+#### Retrieval Performance
+
+To validate these design choices, I ran an ablation study on a set of challenging user queries. With a Top-K of 10, the system performed over **700 individual relevance judgments** across these configurations.
+
+| Configuration                | Relevance | Impact       |
+| :--------------------------- | :-------- | :----------- |
+| **Everything on (Baseline)** | **62%**   | **Baseline** |
+| No Positive Expansion        | 58%       | -4%          |
+| No Keyword Injection         | 57%       | -5%          |
+| No Neighbouring Chunks       | 56%       | -6%          |
+| No Chat History              | 48%       | -14%         |
+| **No Rephrasing** \*         | **43%**   | **-19%**     |
+
+_\*Turning off "Rephrasing" disables Keyword Injection, Positive Expansion, and Chat History simultaneously._
+
 #### Auto-updating knowledge base
 
 Every day, a scraper walks both school websites, follows links, and keeps only the important pages (e.g. course info, pricing, accommodation, FAQs).
