@@ -1,19 +1,23 @@
 import { useId } from "react"
-import { getOnOffCycleCSS } from "@/lib/get-on-off-cycle-css"
+import { generateCycleCSS } from "@/lib/generate-cycle-css"
 import { cn } from "@/lib/utils"
 
 export function StatusDots(props: {
 	duration: number
 	proportions: number[]
+	transitionPercent: number
+	exitTransitionPercent?: number
 	className?: string
 }) {
 	const componentId = useId().replaceAll(":", "")
-	const style = getOnOffCycleCSS({
+	const style = generateCycleCSS({
 		componentId,
 		duration: props.duration,
 		proportions: props.proportions,
-		on: "{ background-color: var(--primary); }",
-		off: "{ background-color: color-mix(in srgb, var(--muted-foreground), transparent 80%); }",
+		transitionPercent: props.transitionPercent,
+		exitTransitionPercent: props.exitTransitionPercent,
+		on: "background-color: var(--primary);",
+		off: "background-color: color-mix(in srgb, var(--muted-foreground), transparent 80%);",
 	})
 	return (
 		<div className={cn("flex gap-1.5", props.className)}>

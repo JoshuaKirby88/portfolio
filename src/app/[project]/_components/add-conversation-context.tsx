@@ -2,14 +2,15 @@ import { type ReactNode, useId } from "react"
 import ReactMarkdown from "react-markdown"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { generateCycleCSS } from "@/lib/generate-cycle-css"
 import { cn } from "@/lib/utils"
 
 type Message = { role: "user" | "assistant"; content: string }
 
-const STEP_MS = 1500
-const HOLD_MS = 3000
-const FADE_OUT_MS = 600
-const LOOP_DELAY_MS = 1000
+const DURATION = 12000
+const TRANSITION_PERCENT = 10
+const EXIT_TRANSITION_PERCENT = 10
+const ACTIVE_PERCENT = 50
 
 export const AddConversationContext = ({
 	rephrased,
@@ -28,62 +29,43 @@ export const AddConversationContext = ({
 		})
 
 	const componentId = useId().replaceAll(":", "")
-
 	const totalItems = parsedMessages.length + 1
-	const appearPhaseMs = totalItems * STEP_MS
-	const fadeOutStartMs = appearPhaseMs + HOLD_MS
-	const fadeOutEndMs = fadeOutStartMs + FADE_OUT_MS
-	const totalDurationMs = fadeOutEndMs + LOOP_DELAY_MS
 
-	const fadeOutStartPercent = (fadeOutStartMs / totalDurationMs) * 100
-	const fadeOutEndPercent = (fadeOutEndMs / totalDurationMs) * 100
+	const stepProp = ACTIVE_PERCENT / totalItems
+	const proportions = [0.05, ...Array(totalItems).fill(stepProp)]
 
-	const getKeyframes = (index: number) => {
-		const startMs = index * STEP_MS
-		const appearMs = startMs + 500
-		const startPercent = (startMs / totalDurationMs) * 100
-		const appearPercent = (appearMs / totalDurationMs) * 100
-		return `@keyframes ${componentId}-${index} {
-	0% { opacity: 0; transform: translateY(8px); }
-	${startPercent}% { opacity: 0; transform: translateY(8px); }
-	${appearPercent}% { opacity: 1; transform: translateY(0); }
-	${fadeOutStartPercent}% { opacity: 1; transform: translateY(0); }
-	${fadeOutEndPercent}% { opacity: 0; transform: translateY(0); }
-	100% { opacity: 0; transform: translateY(0); }
-}`
-	}
-
-	const styles = [
-		...parsedMessages.map((_, i) => getKeyframes(i)),
-		getKeyframes(parsedMessages.length),
-	].join("\n")
+	const style = generateCycleCSS({
+		componentId,
+		duration: DURATION,
+		proportions,
+		accumulate: true,
+		cycleEndPercent: 100,
+		transitionPercent: TRANSITION_PERCENT,
+		exitTransitionPercent: EXIT_TRANSITION_PERCENT,
+		on: "opacity: 1; transform: translateY(0); filter: blur(0px);",
+		off: "opacity: 0; transform: translateY(8px); filter: blur(4px);",
+	})
 
 	return (
 		<div className="rounded-xl border bg-card p-6 text-sm">
-			<style>{styles}</style>
+			<style>{style}</style>
 
 			<div className="space-y-3">
 				{parsedMessages.map((msg, i) => (
 					<div
 						key={msg.content}
 						className={cn(
+							`a-${componentId}-${i + 1}`,
 							"max-w-[85%] rounded-lg border px-3 py-2",
 							msg.role === "user" ? "ml-auto bg-background" : "bg-secondary",
 						)}
-						style={{
-							animation: `${componentId}-${i} ${totalDurationMs}ms infinite ease-out`,
-						}}
 					>
 						{msg.content}
 					</div>
 				))}
 			</div>
 
-			<div
-				style={{
-					animation: `${componentId}-${parsedMessages.length} ${totalDurationMs}ms infinite ease-out`,
-				}}
-			>
+			<div className={`a-${componentId}-${parsedMessages.length + 1}`}>
 				<Separator className="my-4" />
 
 				<Badge variant="brand" className="mb-2">
