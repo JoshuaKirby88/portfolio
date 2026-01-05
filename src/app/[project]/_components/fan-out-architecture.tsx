@@ -5,31 +5,22 @@ import { cn } from "@/lib/utils"
 import { StatusBadge } from "./status-badge"
 import { StatusDots } from "./status-dots"
 
-type Candidate = {
-	word: string
-	status: "pass" | "fail"
-}
-
 const DURATION = 8000
 const PROPORTIONS = [0.2, 0.25, 0.55]
 const TRANSITION_PERCENT = 20
 const ICON_TRANSITION_PERCENT = 10
 const EXIT_TRANSITION_PERCENT = 10
 
-export function FanOutArchitecture({
-	transcript,
-	candidates: candidatesString,
-}: {
+export function FanOutArchitecture(props: {
 	transcript: string
-	candidates: string
+	candidates: { word: string; status: "pass" | "fail" }[]
 }) {
 	const id = useId().replaceAll(":", "")
-	const candidates: Candidate[] = JSON.parse(candidatesString)
-	const wordsPattern = candidates
+	const wordsPattern = props.candidates
 		.map((c) => c.word.replace(/[.*+?^${}()|[\\]/g, "\\$&"))
 		.join("|")
 	const regex = new RegExp(`\\b(${wordsPattern})\\b`, "gi")
-	const parts = transcript.split(regex)
+	const parts = props.transcript.split(regex)
 
 	const highlightStyles = generateCycleCSS({
 		componentId: `h-${id}`,
@@ -95,7 +86,7 @@ export function FanOutArchitecture({
 			{/* Transcript Card */}
 			<div className="mt-2 rounded-lg border bg-background px-3 py-2 text-sm leading-relaxed">
 				{parts.map((part, index) => {
-					const candidate = candidates.find(
+					const candidate = props.candidates.find(
 						(c) => c.word.toLowerCase() === part.toLowerCase(),
 					)
 
@@ -116,7 +107,7 @@ export function FanOutArchitecture({
 
 			{/* Fan Out Lanes */}
 			<div className="mt-7 grid grid-cols-1 gap-10 md:grid-cols-3">
-				{candidates.map((candidate, i) => {
+				{props.candidates.map((candidate, i) => {
 					const isPass = candidate.status === "pass"
 					const Icon = isPass ? CheckIcon : XIcon
 					return (

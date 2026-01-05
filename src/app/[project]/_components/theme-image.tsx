@@ -1,4 +1,4 @@
-import Image, { type ImageProps } from "next/image"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 export const ThemeImage = ({
@@ -7,7 +7,7 @@ export const ThemeImage = ({
 	className,
 	children,
 	...props
-}: ImageProps) => {
+}: React.ComponentProps<typeof Image>) => {
 	return (
 		<div className="not-prose overflow-hidden rounded-xl border bg-background">
 			<Image

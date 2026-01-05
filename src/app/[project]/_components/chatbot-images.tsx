@@ -1,12 +1,11 @@
 import Image from "next/image"
 
-type ChatbotImage = { src: string; alt: string }
-
-export const ChatbotImages = (props: { images: string }) => {
-	const images = JSON.parse(props.images) as ChatbotImage[]
+export const ChatbotImages = (props: {
+	images: { src: string; alt: string }[]
+}) => {
 	return (
 		<div className="not-prose flex flex-wrap justify-center gap-4">
-			{images.map((image) => (
+			{props.images.map((image) => (
 				<div
 					key={image.src}
 					className="relative overflow-hidden rounded-xl border bg-background pr-10 pb-10"

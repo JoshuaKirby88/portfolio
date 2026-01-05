@@ -17,6 +17,8 @@ import { MacTerminal } from "./_components/mac-terminal"
 import { ThemeImage } from "./_components/theme-image"
 import { WebsiteContentProcess } from "./_components/website-content-process"
 
+type StringVal<T> = { [key in keyof T]: string }
+
 const projects = ["genkijacs", "placement-test"]
 const codeBlockLanguages = { macterminal: "macterminal", macmail: "macmail" }
 
@@ -139,24 +141,33 @@ export default async function Page(props: {
 								/>
 							)
 						},
-						addkeywords: (props: React.ComponentProps<typeof AddKeywords>) => (
-							<AddKeywords {...props} />
-						),
+						addkeywords: (
+							props: StringVal<React.ComponentProps<typeof AddKeywords>>,
+						) => <AddKeywords {...props} />,
 						addconversationcontext: (
-							props: React.ComponentProps<typeof AddConversationContext>,
+							props: StringVal<
+								React.ComponentProps<typeof AddConversationContext>
+							>,
 						) => <AddConversationContext {...props} />,
 						chatbotimages: (
-							props: React.ComponentProps<typeof ChatbotImages>,
-						) => <ChatbotImages {...props} />,
+							props: StringVal<React.ComponentProps<typeof ChatbotImages>>,
+						) => <ChatbotImages {...props} images={JSON.parse(props.images)} />,
 						websitecontentprocess: (
-							props: React.ComponentProps<typeof WebsiteContentProcess>,
+							props: StringVal<
+								React.ComponentProps<typeof WebsiteContentProcess>
+							>,
 						) => <WebsiteContentProcess {...props} />,
 						themeimage: (props: React.ComponentProps<typeof ThemeImage>) => (
 							<ThemeImage {...props} />
 						),
 						fanoutarchitecture: (
-							props: React.ComponentProps<typeof FanOutArchitecture>,
-						) => <FanOutArchitecture {...props} />,
+							props: StringVal<React.ComponentProps<typeof FanOutArchitecture>>,
+						) => (
+							<FanOutArchitecture
+								{...props}
+								candidates={JSON.parse(props.candidates)}
+							/>
+						),
 					} as any
 				}
 			>
