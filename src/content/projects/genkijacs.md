@@ -8,7 +8,7 @@ I independently designed, built, and operated a production RAG chatbot and staff
 - **Role:** Software Engineer Intern (sole engineer, part-time)
 - **Location:** Fukuoka, Japan
 - **Duration:** Sep 2023 – Jun 2024
-- **Tech:** TypeScript, Python, Next.js, AWS, [Pinecone](https://www.pinecone.io) (vector DB), OpenAI
+- **Tech:** TypeScript, Python, [Next.js](https://nextjs.org), AWS, [Pinecone](https://www.pinecone.io) (vector DB), OpenAI
 - **Impact:** **10,000+** messages, **~70** hours saved per week
 
 ### 1. Context & Problem
@@ -36,7 +36,7 @@ At a high level, the system has three moving parts:
 #### The Conversation Pipeline
 
 The process begins by checking the user's question against [OpenAI’s moderations API](https://platform.openai.com/docs/api-reference/moderations) to make sure it's safe to answer.
-Once cleared, I rephrase the question to optimise it for retrieval.
+Once cleared, I use **GPT-4.1** to rephrase the question to optimise it for retrieval.
 This is because raw user queries are often messy or incomplete.
 
 First, I inject school-specific keywords.
@@ -74,11 +74,11 @@ To fix this, I placed them near the end of the prompt to ensure they take preced
 
 Finally, I construct the prompt using a **system message**, the **assembled context** (with source URLs for inline citations), and the **original question**.
 
-The model generates a reply in the user's original language, and I stream that answer back with clickable links.
+**GPT-5.1** generates a reply in the user's original language, and I stream that answer back with clickable links.
 
 #### Retrieval Performance
 
-To validate these design choices, I ran an ablation study on a set of challenging user queries. With a Top-K of 10, the system performed over **700 individual relevance judgments** across these configurations.
+To validate these design choices, I ran an ablation study using **GPT-5 mini** as a judge on a set of challenging user queries. With a Top-K of 10, the system performed over **700 individual relevance judgments** across these configurations.
 
 | Configuration                | Relevance | Impact       |
 | :--------------------------- | :-------- | :----------- |
