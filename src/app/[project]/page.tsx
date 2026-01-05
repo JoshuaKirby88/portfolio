@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import React from "react"
@@ -8,12 +7,18 @@ import rehypeRaw from "rehype-raw"
 import remarkBreaks from "remark-breaks"
 import remarkGfm from "remark-gfm"
 import { homeContent } from "@/content/home"
+import { cn } from "@/lib/utils"
 import { AddConversationContext } from "./_components/add-conversation-context"
 import { AddKeywords } from "./_components/add-keywords"
 import { ChatbotImages } from "./_components/chatbot-images"
+import { FanOutArchitecture } from "./_components/fan-out-architecture"
+import { MacMail } from "./_components/mac-mail"
+import { MacTerminal } from "./_components/mac-terminal"
+import { ThemeImage } from "./_components/theme-image"
 import { WebsiteContentProcess } from "./_components/website-content-process"
 
 const projects = ["genkijacs", "placement-test"]
+const codeBlockLanguages = { macterminal: "macterminal", macmail: "macmail" }
 
 export function generateStaticParams() {
 	return projects.map((slug) => ({ project: slug }))
@@ -75,35 +80,83 @@ export default async function Page(props: {
 				rehypePlugins={[rehypeRaw]}
 				components={
 					{
-						p: (props: any) => {
-							const { children, ...rest } = props
-							const hasBlock = React.Children.toArray(children).some(
-								(child: any) =>
+						p: (props: React.ComponentProps<"p">) => {
+							const hasBlock = React.Children.toArray(props.children).some(
+								(child) =>
 									React.isValidElement(child) && typeof child.type !== "string",
 							)
 							if (hasBlock) {
-								return <div {...rest}>{children}</div>
+								return <div {...props} />
 							}
-							return <p {...rest}>{children}</p>
+							return <p {...props} />
 						},
-						a: (props: any) => {
-							const isExternal = props.href.startsWith("https://")
+						a: (props: React.ComponentProps<"a">) => {
+							const isExternal = props.href?.startsWith("https://")
 							if (isExternal) {
 								return (
 									<a {...props} target="_blank" rel="noopener noreferrer" />
 								)
 							}
-							return <Link {...props} />
+							return <Link href={props.href || ""} {...props} />
 						},
-						nextimage: (props: any) => <Image {...props} />,
-						addkeywords: (props: any) => <AddKeywords {...props} />,
-						addconversationcontext: (props: any) => (
-							<AddConversationContext {...props} />
+						pre: ({
+							node,
+							...props
+						}: React.ComponentProps<"pre"> & { node?: any }) => {
+							const firstChild = node?.children?.[0]
+							if (
+								firstChild &&
+								firstChild.type === "element" &&
+								firstChild.tagName === "code" &&
+								Object.values(codeBlockLanguages).some((lang) =>
+									firstChild.properties?.className?.includes(
+										`language-${lang}`,
+									),
+								)
+							) {
+								return props.children
+							}
+							return <pre {...props} />
+						},
+						code: ({
+							inline,
+							className,
+							...props
+						}: React.ComponentProps<"code"> & { inline?: boolean }) => {
+							const match = /language-(\w+)/.exec(className || "")
+							if (!inline && match) {
+								if (match[1] === codeBlockLanguages.macterminal) {
+									return <MacTerminal>{props.children}</MacTerminal>
+								}
+								if (match[1] === codeBlockLanguages.macmail) {
+									return <MacMail>{props.children}</MacMail>
+								}
+							}
+							return (
+								<code
+									className={cn(className, "before:hidden after:hidden")}
+									{...props}
+								/>
+							)
+						},
+						addkeywords: (props: React.ComponentProps<typeof AddKeywords>) => (
+							<AddKeywords {...props} />
 						),
-						chatbotimages: (props: any) => <ChatbotImages {...props} />,
-						websitecontentprocess: (props: any) => (
-							<WebsiteContentProcess {...props} />
+						addconversationcontext: (
+							props: React.ComponentProps<typeof AddConversationContext>,
+						) => <AddConversationContext {...props} />,
+						chatbotimages: (
+							props: React.ComponentProps<typeof ChatbotImages>,
+						) => <ChatbotImages {...props} />,
+						websitecontentprocess: (
+							props: React.ComponentProps<typeof WebsiteContentProcess>,
+						) => <WebsiteContentProcess {...props} />,
+						themeimage: (props: React.ComponentProps<typeof ThemeImage>) => (
+							<ThemeImage {...props} />
 						),
+						fanoutarchitecture: (
+							props: React.ComponentProps<typeof FanOutArchitecture>,
+						) => <FanOutArchitecture {...props} />,
 					} as any
 				}
 			>

@@ -125,3 +125,7 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+.prose :where(code):not(:where([class~="not-prose"] *, pre *)) {
+	@apply rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold text-sm;
+}

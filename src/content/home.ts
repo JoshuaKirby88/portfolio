@@ -73,7 +73,6 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 				"Digitised a senior teacher's evaluation process using an **agentic workflow** to accurately assess the student's grammar limits.",
 				"Engineered a **multi-tenant** platform with custom **Git-style** version control for managing test configurations.",
 			],
-			disabled: true,
 		},
 	],
 }
