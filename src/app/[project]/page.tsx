@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import React from "react"
+import type React from "react"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import remarkBreaks from "remark-breaks"
 import remarkGfm from "remark-gfm"
 import { homeContent } from "@/content/home"
+import { preprocessMarkdown } from "@/lib/preprocess-markdown"
 import { cn } from "@/lib/utils"
 import { AddConversationContext } from "./_components/add-conversation-context"
 import { AddKeywords } from "./_components/add-keywords"
@@ -17,10 +18,12 @@ import { MacTerminal } from "./_components/mac-terminal"
 import { ThemeImage } from "./_components/theme-image"
 import { WebsiteContentProcess } from "./_components/website-content-process"
 
-type StringVal<T> = { [key in keyof T]: string }
+type StringProps<T extends React.JSXElementConstructor<any>> = {
+	[key in keyof React.ComponentProps<T>]: string
+}
 
 const projects = ["genkijacs", "placement-test"]
-const codeBlockLanguages = { macterminal: "macterminal", macmail: "macmail" }
+const tagsToProcess = ["macmail", "addconversationcontext", "macterminal"]
 
 export function generateStaticParams() {
 	return projects.map((slug) => ({ project: slug }))
@@ -73,7 +76,11 @@ export default async function Page(props: {
 		notFound()
 	}
 
-	const markdown = (await import(`@/content/projects/${project}.md`)).default
+	const rawMarkdown = (await import(`@/content/projects/${project}.md`)).default
+	const markdown = preprocessMarkdown({
+		markdown: rawMarkdown,
+		tagsToProcess,
+	})
 
 	return (
 		<article className="prose prose-neutral dark:prose-invert container mx-auto max-w-4xl px-4 py-20">
@@ -82,16 +89,6 @@ export default async function Page(props: {
 				rehypePlugins={[rehypeRaw]}
 				components={
 					{
-						p: (props: React.ComponentProps<"p">) => {
-							const hasBlock = React.Children.toArray(props.children).some(
-								(child) =>
-									React.isValidElement(child) && typeof child.type !== "string",
-							)
-							if (hasBlock) {
-								return <div {...props} />
-							}
-							return <p {...props} />
-						},
 						a: (props: React.ComponentProps<"a">) => {
 							const isExternal = props.href?.startsWith("https://")
 							if (isExternal) {
@@ -101,67 +98,37 @@ export default async function Page(props: {
 							}
 							return <Link href={props.href || ""} {...props} />
 						},
-						pre: ({
-							node,
-							...props
-						}: React.ComponentProps<"pre"> & { node?: any }) => {
-							const firstChild = node?.children?.[0]
-							if (
-								firstChild &&
-								firstChild.type === "element" &&
-								firstChild.tagName === "code" &&
-								Object.values(codeBlockLanguages).some((lang) =>
-									firstChild.properties?.className?.includes(
-										`language-${lang}`,
-									),
-								)
-							) {
-								return props.children
-							}
-							return <pre {...props} />
-						},
-						code: ({
-							inline,
-							className,
-							...props
-						}: React.ComponentProps<"code"> & { inline?: boolean }) => {
-							const match = /language-(\w+)/.exec(className || "")
-							if (!inline && match) {
-								if (match[1] === codeBlockLanguages.macterminal) {
-									return <MacTerminal>{props.children}</MacTerminal>
-								}
-								if (match[1] === codeBlockLanguages.macmail) {
-									return <MacMail>{props.children}</MacMail>
-								}
-							}
+						code: ({ className, ...props }: React.ComponentProps<"code">) => {
 							return (
 								<code
-									className={cn(className, "before:hidden after:hidden")}
 									{...props}
+									className={cn(className, "before:hidden after:hidden")}
 								/>
 							)
 						},
-						addkeywords: (
-							props: StringVal<React.ComponentProps<typeof AddKeywords>>,
-						) => <AddKeywords {...props} />,
+						addkeywords: (props: StringProps<typeof AddKeywords>) => (
+							<AddKeywords {...props} />
+						),
 						addconversationcontext: (
-							props: StringVal<
-								React.ComponentProps<typeof AddConversationContext>
-							>,
+							props: StringProps<typeof AddConversationContext>,
 						) => <AddConversationContext {...props} />,
-						chatbotimages: (
-							props: StringVal<React.ComponentProps<typeof ChatbotImages>>,
-						) => <ChatbotImages {...props} images={JSON.parse(props.images)} />,
+						chatbotimages: (props: StringProps<typeof ChatbotImages>) => (
+							<ChatbotImages {...props} images={JSON.parse(props.images)} />
+						),
 						websitecontentprocess: (
-							props: StringVal<
-								React.ComponentProps<typeof WebsiteContentProcess>
-							>,
+							props: StringProps<typeof WebsiteContentProcess>,
 						) => <WebsiteContentProcess {...props} />,
+						macterminal: (props: StringProps<typeof MacTerminal>) => (
+							<MacTerminal {...props} />
+						),
+						macmail: (props: StringProps<typeof MacMail>) => (
+							<MacMail {...props} />
+						),
 						themeimage: (props: React.ComponentProps<typeof ThemeImage>) => (
 							<ThemeImage {...props} />
 						),
 						fanoutarchitecture: (
-							props: StringVal<React.ComponentProps<typeof FanOutArchitecture>>,
+							props: StringProps<typeof FanOutArchitecture>,
 						) => (
 							<FanOutArchitecture
 								{...props}
