@@ -1,6 +1,7 @@
 ## AI Conversational Placement Test
 
-<themeimage src="/placement-test/test-ui/" alt="Student Voice Interface" width="0" height="0" sizes="100vw" className="w-full h-auto" ></themeimage>
+<themeimage src="/placement-test/test-ui/" alt="Student Voice Interface" width="0" height="0" sizes="100vw" className="w-full h-auto" >
+</themeimage>
 
 I built an AI placement test that mimics the probing intuition of a senior teacher.
 It takes a 2-week scheduling bottleneck and compresses it into a 30-minute, on-demand assessment.
@@ -43,7 +44,8 @@ I codified this behaviour into a **Pedagogical State Machine**:
 
 4.  **Give Up:** If they fail, move to the next question.
 
-<themeimage src="/placement-test/state-machine/" alt="Pedagogical State Machine Diagram" width="0" height="0" sizes="100vw" className="w-full h-auto" ></themeimage>
+<themeimage src="/placement-test/state-machine/" alt="Pedagogical State Machine Diagram" width="0" height="0" sizes="100vw" className="w-full h-auto" >
+</themeimage>
 
 This ensures every student gets a standardised chance to prove their ability, unlike a free-form LLM chat which might drift off-topic.
 
@@ -59,7 +61,8 @@ I solved this with a **Parallel "Fan-Out" Architecture**:
 
 2.  **Verification Agents (Parallel):** I spawn a separate, isolated LLM process for each proposed match.
 
-<fanoutarchitecture transcript="I went to the store. I buy milk. It was good." candidates='[{"word": "went", "status": "pass"}, {"word": "buy", "status": "fail"}, {"word": "was", "status": "pass"}]' ></fanoutarchitecture>
+<fanoutarchitecture transcript="I went to the store. I buy milk. It was good." candidates='[{"word": "went", "status": "pass"}, {"word": "buy", "status": "fail"}, {"word": "was", "status": "pass"}]' >
+</fanoutarchitecture>
 
 **The Regression Suite**
 
@@ -71,23 +74,23 @@ I evaluate the system on **Strict Recall**. A sample only passes if the AI ident
 
 Currently, the system achieves a **70% Strict Recall** rate.
 
-```macterminal
+<macterminal>
 Eval Complete
 
 Summary:
 ──────────────────────────────────────────────────
-Total Samples:        573
-Successful Samples:   405
-Success Rate:         70.68%
-Total Labels:         605
-Total Predictions:    520
-True Positives:       460
-False Negatives:      145
-False Positives:      64
-Total Cost:           $0.2417
-Average Cost:         $0.000422
+Total Samples: 573
+Successful Samples: 405
+Success Rate: 70.68%
+Total Labels: 605
+Total Predictions: 520
+True Positives: 460
+False Negatives: 145
+False Positives: 64
+Total Cost: $0.2417
+Average Cost: $0.000422
 ──────────────────────────────────────────────────
-```
+</macterminal>
 
 This infrastructure transforms prompt engineering from guesswork into a deterministic process. I can tweak the prompt, run the suite, and immediately see if performance improved or regressed.
 
@@ -119,7 +122,8 @@ I built a **Multi-Tenant SaaS Architecture** using Next.js Middleware.
 
 - **Tenant Isolation:** Cookies are scoped strictly to the subdomain, ensuring that a session at School A never leaks into School B.
 
-<themeimage src="/placement-test/school-student-auth-config/" alt="Student Auth Configuration Page" width="0" height="0" sizes="100vw" className="w-full h-auto" ></themeimage>
+<themeimage src="/placement-test/school-student-auth-config/" alt="Student Auth Configuration Page" width="0" height="0" sizes="100vw" className="w-full h-auto" >
+</themeimage>
 
 This allows me to onboard new customers programmatically. A new school can sign up and configure a privacy-compliant intake flow instantly, with zero infrastructure changes.
 

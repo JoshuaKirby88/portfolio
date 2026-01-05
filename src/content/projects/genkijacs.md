@@ -1,6 +1,7 @@
 ## GenkiJACS 1-year internship
 
-<chatbotimages images='[{"src": "/genkijacs/genkijacs-chatbot.webp", "alt": "GenkiJACS Chatbot"}, {"src": "/genkijacs/nagoya-chatbot.webp", "alt": "Nagoya Chatbot"}]'></chatbotimages>
+<chatbotimages images='[{"src": "/genkijacs/genkijacs-chatbot.webp", "alt": "GenkiJACS Chatbot"}, {"src": "/genkijacs/nagoya-chatbot.webp", "alt": "Nagoya Chatbot"}]'>
+</chatbotimages>
 <br />
 
 I independently designed, built, and operated a production RAG chatbot and staff portal for [GenkiJACS](https://www.genkijacs.com/) (Japanese language school).
@@ -42,7 +43,8 @@ This is because raw user queries are often messy or incomplete.
 First, I inject school-specific keywords.
 This ensures generic terms like "courses" map correctly to the school's specific offerings.
 
-<addkeywords original="What courses do you offer?" keywords="Study, Core Japanese Course, Learn"></addkeywords>
+<addkeywords original="What courses do you offer?" keywords="Study, Core Japanese Course, Learn">
+</addkeywords>
 
 Next, I include context from earlier messages, because users rarely ask perfect, standalone questions.
 "Why is it required?" means nothing without the previous message.
@@ -57,7 +59,8 @@ I also noticed that negative phrasing limited search results.
 If a user asks "Do you only offer **X**?", a vector query might miss the intermediate options.
 To fix this, I expand the query to include the positive alternative.
 
-<addkeywords original="Do you only offer beginner courses?" keywords="What intermediate and advanced courses do you offer?"></addkeywords>
+<addkeywords original="Do you only offer beginner courses?" keywords="What intermediate and advanced courses do you offer?">
+</addkeywords>
 
 With the query polished, I [embed](https://platform.openai.com/docs/guides/embeddings) it and send it to [Pinecone](https://www.pinecone.io) to search the entire knowledge base.
 
@@ -67,7 +70,8 @@ The matches returned are split into two groups: **Website Content** and **Staff 
 This creates a "sliding window" effect, providing the model with complete, coherent passages.
 This significantly reduces **hallucination rates** by ensuring answers are grounded in full context rather than fragmented sentences.
 
-<websitecontentprocess url="genkijacs.com" match="... live it. That's why we focus not just on teaching you the basics of grammar, ..." topneighbour="At Genki, we believe you can't learn a language using only a textbook. You need to feel it, use it, ..." bottomneighbour="... but also on how to live in Japan and communicate with real Japanese people." ></websitecontentprocess>
+<websitecontentprocess url="genkijacs.com" match="... live it. That's why we focus not just on teaching you the basics of grammar, ..." topneighbour="At Genki, we believe you can't learn a language using only a textbook. You need to feel it, use it, ..." bottomneighbour="... but also on how to live in Japan and communicate with real Japanese people." >
+</websitecontentprocess>
 
 **For Staff Notes**, if I simply sorted them by score, they often got buried in the middle of the context.
 To fix this, I placed them near the end of the prompt to ensure they take precedence over any conflicting **Website Content**.
@@ -102,12 +106,12 @@ The scraper then compares these chunks with what’s stored, and only updates th
 To connect the chat interface with the staff portal, I built a seamless handoff mechanism.
 When a student clicks to email the school, I inject the conversation ID directly into the email body.
 
-```
+<macmail to="info@genkijacs.com" from="Joshua Kirby - jojokirby88@gmail.com" subject="Contact from chatbot">
 Conversation ID: xxx
 
 (The above ID will help us quickly locate and review your conversation with our chatbot, ensuring we can provide you with the best possible support.
 If you would prefer that our team not review the conversation, you're welcome to omit the ID from this email.)
-```
+</macmail>
 
 This ID allows staff to instantly replay the conversation history, ensuring the support experience feels continuous rather than disjointed.
 

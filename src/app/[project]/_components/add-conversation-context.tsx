@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { generateCycleCSS } from "@/lib/generate-cycle-css"
+import { getTextFromChildren } from "@/lib/get-text-from-children"
 import { cn } from "@/lib/utils"
 
 type Message = { role: "user" | "assistant"; content: string }
@@ -19,8 +20,7 @@ export const AddConversationContext = ({
 	rephrased: string
 	children: ReactNode
 }) => {
-	const parsedMessages = children!
-		.toString()
+	const parsedMessages = getTextFromChildren(children)
 		.split(/\r?\n|\\n/)
 		.flatMap((line) => {
 			const [role, content] = line.split(":").map((str) => str.trim())
@@ -55,9 +55,9 @@ export const AddConversationContext = ({
 					<div
 						key={msg.content}
 						className={cn(
-							`a-${componentId}-${i + 1}`,
-							"max-w-[85%] rounded-lg border px-3 py-2",
-							msg.role === "user" ? "ml-auto bg-background" : "bg-secondary",
+								`a-${componentId}-${i + 1}`,
+								"max-w-[85%] rounded-lg border px-3 py-2",
+								msg.role === "user" ? "ml-auto bg-background" : "bg-secondary",
 						)}
 					>
 						{msg.content}
