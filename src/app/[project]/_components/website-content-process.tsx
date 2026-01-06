@@ -7,8 +7,8 @@ import { StatusBadge } from "./status-badge"
 
 const DURATION = 8000
 const PROPORTIONS = [0.2, 0.25, 0.55]
-const TRANSITION_PERCENT = 15
-const EXIT_TRANSITION_PERCENT = 15
+const TRANSITION_PERCENT = 10
+const EXIT_TRANSITION_PERCENT = 10
 
 export function WebsiteContentProcess(props: {
 	url: string
