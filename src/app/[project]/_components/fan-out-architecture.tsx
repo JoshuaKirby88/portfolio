@@ -7,7 +7,7 @@ import { StatusDots } from "./status-dots"
 
 const DURATION = 8000
 const PROPORTIONS = [0.2, 0.25, 0.55]
-const TRANSITION_PERCENT = 20
+const TRANSITION_PERCENT = 10
 const ICON_TRANSITION_PERCENT = 10
 const EXIT_TRANSITION_PERCENT = 10
 

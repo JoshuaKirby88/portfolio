@@ -12,10 +12,7 @@ export const generateCycleCSS = (options: {
 	const exitTransitionPercent =
 		options.exitTransitionPercent ?? options.transitionPercent
 	const cycleEnd = options.cycleEndPercent ?? 100
-	const syncWindow = Math.max(
-		options.transitionPercent,
-		exitTransitionPercent,
-	)
+	const syncWindow = Math.max(options.transitionPercent, exitTransitionPercent)
 
 	let currentPercent = 0
 	const steps = options.proportions.map((p) => {
@@ -49,9 +46,9 @@ export const generateCycleCSS = (options: {
 				fadeOutEnd = step.end + exitTransitionPercent
 
 				if (fadeOutEnd > 100) {
-						fadeOutStart = 100 - syncWindow
-						fadeOutEnd = 100
-					}
+					fadeOutStart = 100 - syncWindow
+					fadeOutEnd = 100
+				}
 			}
 
 			if (fadeInEnd > fadeOutStart) {
@@ -60,18 +57,18 @@ export const generateCycleCSS = (options: {
 
 			if (step.start === 0) {
 				if (options.accumulate) {
-						add(0, options.off)
-					} else {
-						add(0, options.on)
-					}
+					add(0, options.off)
+				} else {
+					add(0, options.on)
+				}
 			} else {
 				add(0, options.off)
 			}
 
 			if (step.start === 0) {
 				if (options.accumulate) {
-						add(fadeInEnd, options.on)
-					}
+					add(fadeInEnd, options.on)
+				}
 			} else {
 				add(fadeInStart, options.off)
 				add(fadeInEnd, options.on)
@@ -85,8 +82,8 @@ export const generateCycleCSS = (options: {
 
 			if (fadeOutEnd < 100) {
 				if (!(step.start === 0 && !options.accumulate)) {
-						add(100, options.off)
-					}
+					add(100, options.off)
+				}
 			}
 
 			if (step.start === 0 && !options.accumulate) {
@@ -98,7 +95,7 @@ export const generateCycleCSS = (options: {
 
 			const uniquePoints = rawPoints.filter(
 				(p, index, self) =>
-						index === 0 || Math.abs(p.percent - self[index - 1].percent) > 0.0001,
+					index === 0 || Math.abs(p.percent - self[index - 1].percent) > 0.0001,
 			)
 
 			const cssKeyframes = uniquePoints
@@ -106,9 +103,10 @@ export const generateCycleCSS = (options: {
 				.join(" ")
 
 			const isFirst = step.start < 0.001
-			const initialStyle = isFirst && !options.accumulate ? options.on : options.off
+			const initialStyle =
+				isFirst && !options.accumulate ? options.on : options.off
 
-			return `.a-${options.componentId}-${i} { ${initialStyle} animation: k-${options.componentId}-${i} ${options.duration}ms cubic-bezier(0.2, 0.8, 0.2, 1) infinite both; will-change: transform, opacity; }
+			return `.a-${options.componentId}-${i} { ${initialStyle} animation: k-${options.componentId}-${i} ${options.duration}ms cubic-bezier(0.4, 0, 0.2, 1) infinite both; will-change: transform, opacity; }
 @keyframes k-${options.componentId}-${i} {
 	${cssKeyframes}
 }`
