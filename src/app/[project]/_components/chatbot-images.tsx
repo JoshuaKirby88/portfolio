@@ -4,7 +4,7 @@ export const ChatbotImages = (props: {
 	images: { src: string; alt: string }[]
 }) => {
 	return (
-		<div className="not-prose flex flex-wrap justify-center gap-4">
+		<div className="not-prose my-10 flex flex-wrap justify-center gap-4">
 			{props.images.map((image) => (
 				<div
 					key={image.src}

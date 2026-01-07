@@ -30,7 +30,7 @@ Building the logic on my own assumptions would have resulted in a flawed product
 To fix this, I interviewed a senior teacher and analysed hours of audio recordings from real placement tests.
 I discovered that experts don't just "chat." They follow a strict logic to verify specific skills.
 
-**How it works**
+#### How It Works
 
 A school configures a test by linking questions to target grammar patterns (e.g., "Question 1 checks for Past Tense").
 The AI's goal is to elicit that specific pattern from the student.
@@ -66,7 +66,7 @@ I solved this by treating the assessment as a precise signal extraction problem,
 <fanoutarchitecture transcript="I went to the store. I buy milk. It was good." candidates='[{"word": "went", "status": "pass"}, {"word": "buy", "status": "fail"}, {"word": "was", "status": "pass"}]' >
 </fanoutarchitecture>
 
-**The Eval Suite**
+#### The Eval Suite
 
 To validate this architecture, I created a dataset of **~600** manual annotations.
 I benchmark the system on **Strict Recall**. A sample only passes if the AI identifies **100%** of the target grammar instances.
@@ -90,7 +90,7 @@ Average Cost: $0.000422
 
 This infrastructure transforms prompt engineering from guesswork into a deterministic process. I can tweak the prompt, run the suite, and immediately see if performance improved or regressed.
 
-**Why Extraction, Not Scoring?**
+#### Why Extraction, Not Scoring?
 
 I avoided having the AI directly assign a level (e.g., "N4") because AI scoring is subjective and prone to drift.
 Instead, I treat the AI as a pattern extractor, not a judge.
@@ -110,7 +110,7 @@ The challenge was building a single platform that adapts to different business n
 I solved this by building a multi-tenant architecture on Next.js:
 
 - **Dynamic Subdomains:** Every school gets their own URL automatically (e.g., `genkijacs.languagetest.net`).
-  I used Middleware to route requests based on the hostname.
+  I used [Middleware](https://nextjs.org/docs/14/app/building-your-application/routing/middleware) to route requests based on the hostname.
   This allows me to onboard new schools and display their unique branding instantly, without deploying new infrastructure.
 
 - **Immutable Deployment:** To allow teachers to update the curriculum freely, I architected a version control system that isolates drafts from the live environment.

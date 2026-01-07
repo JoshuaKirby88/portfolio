@@ -82,7 +82,7 @@ export default async function Page(props: {
 	})
 
 	return (
-		<article className="prose prose-neutral dark:prose-invert container mx-auto max-w-4xl px-4 py-20">
+		<article className="prose prose-neutral dark:prose-invert container mx-auto max-w-4xl px-4 py-20 [&_h3]:mt-10">
 			<ReactMarkdown
 				remarkPlugins={[remarkGfm]}
 				rehypePlugins={[rehypeRaw]}

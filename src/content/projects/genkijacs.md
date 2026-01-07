@@ -2,7 +2,6 @@
 
 <chatbotimages images='[{"src": "/genkijacs/genkijacs-chatbot.webp", "alt": "GenkiJACS Chatbot"}, {"src": "/genkijacs/nagoya-chatbot.webp", "alt": "Nagoya Chatbot"}]'>
 </chatbotimages>
-<br />
 
 I independently designed, built, and operated a production RAG chatbot and staff portal for [GenkiJACS](https://www.genkijacs.com) (Japanese language school).
 
@@ -93,15 +92,15 @@ With a Top-K of 10, the system performed over **700** relevance judgments across
 | No Chat History              | 48%       | -14%         |
 | **No Rephrasing** \*         | **43%**   | **-19%**     |
 
-_\*Turning off "Rephrasing" disables Keyword Injection, Positive Expansion, and Chat History simultaneously._
+<p className="text-sm -mt-3 text-muted-foreground text-center"><em>*Turning off Rephrasing disables Keyword Injection, Positive Expansion, and Chat History simultaneously.</em></p>
 
-#### Auto-updating knowledge base
+#### Auto-Updating Knowledge Base
 
 Every day, a scraper walks both school websites, follows links, and keeps only the important pages (e.g. course info, pricing, accommodation, FAQs).
 It extracts the main content, splits it into small chunks, and tags each with URL and position on the page.
 The scraper then compares these chunks with what’s stored, and only updates the database when content actually changes.
 
-#### Staff portal for edge cases and insight
+#### Staff Portal for Edge Cases and Insights
 
 I built a seamless handoff mechanism to bridge the chat interface and the staff portal.
 When a student clicks to email the school, I inject the conversation ID directly into the email body.
@@ -118,14 +117,14 @@ This ID allows staff to instantly replay the conversation history, ensuring the 
 To keep operations agile, the dashboard lets staff manage time-sensitive entries like holiday closures or special course info, which they can toggle on or off instantly.
 It also surfaces high-level analytics, showing which pages are referenced most by the AI and where users are located, so the school can see exactly where the website is working and where students are getting stuck.
 
-#### How the pieces fit together
+#### How the Pieces Fit Together
 
 I built the core as a unified Next.js application.
 It handles both the complex backend logic and the staff dashboard in one place.
 The chatbot widget is a static React app isolated in an iframe to make it drop-in compatible with any website platform.
 The system relies on [Pinecone](https://www.pinecone.io) to store knowledge and OpenAI to generate answers, with the infrastructure running on AWS.
 
-### 4. My role & way of working
+### 4. My Role & Way of Working
 
 Being the sole technical person meant I held full responsibility for the project's success.
 I handled the design, implementation, and ongoing operations myself.
@@ -140,7 +139,7 @@ In practice, this meant owning the full stack:
 I worked in tight feedback loops with the staff, analysing real conversation logs to guide development.
 This iterative process led to key features like Staff Notes to handle edge cases, and a smart handoff feature that detects high-stakes topics like pricing and offers a one-click email button instead of letting the bot guess.
 
-### 5. Impact & business value
+### 5. Impact & Business Value
 
 I deployed the system to production in April 2024.
 
@@ -150,14 +149,14 @@ I deployed the system to production in April 2024.
 - **Student experience:** Provides instant, **24/7** answers in any language.
 - **Business intelligence:** Gives staff visibility into high-traffic topics and reveals where website content is confusing or incomplete.
 
-### 6. Beyond code
+### 6. Beyond Code
 
 I also took ownership of the school's physical network for the six-storey building, configuring the VPN and troubleshooting connectivity issues.
 
 Before building the chatbot, I attempted to build an email auto-reply agent that pulled raw messages from IMAP.
 However, this project never shipped. The complexity of unstructured email threads outpaced my experience at the time. This failure taught me to prototype early before committing, and it directly inspired the pivot to a chat interface where I could control the environment to guarantee a higher quality result.
 
-### 7. Learnings & what I’d improve next
+### 7. Learnings & Improvements
 
 The parts that worked best were the zero‑maintenance architecture and the staff portal which turned the chatbot from a black box into a tool the team could actually steer.
 

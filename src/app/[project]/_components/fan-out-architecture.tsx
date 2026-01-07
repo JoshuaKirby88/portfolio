@@ -56,7 +56,7 @@ export function FanOutArchitecture(props: {
 	})
 
 	return (
-		<div className="relative flex w-full flex-col items-center justify-center rounded-xl border bg-card p-3 pt-14 text-sm md:p-8">
+		<div className="relative my-10 flex w-full flex-col items-center justify-center rounded-xl border bg-card p-3 pt-14 text-sm md:p-8">
 			<style>{highlightStyles}</style>
 			<style>{cardStyles}</style>
 			<style>{iconStyles}</style>

@@ -10,8 +10,8 @@ export const ThemeImage = ({
 	...props
 }: React.ComponentProps<typeof Image> & { caption?: string }) => {
 	return (
-		<>
-			<div className="not-prose overflow-hidden rounded-xl border bg-background">
+		<div className="not-prose my-10">
+			<div className="overflow-hidden rounded-xl border bg-background">
 				<Image
 					src={`${src}light.webp`}
 					alt={alt}
@@ -30,6 +30,6 @@ export const ThemeImage = ({
 					{caption}
 				</div>
 			)}
-		</>
+		</div>
 	)
 }

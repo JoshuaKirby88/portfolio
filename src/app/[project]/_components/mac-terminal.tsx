@@ -9,7 +9,7 @@ export const MacTerminal = (props: {
 	return (
 		<div
 			className={cn(
-				"overflow-hidden rounded-xl border bg-muted",
+				"my-10 overflow-hidden rounded-xl border bg-muted",
 				props.className,
 			)}
 		>
