@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://joshuakirby.webcam"),
+	metadataBase: new URL("https://joshuakirby.dev"),
 	title: {
 		default: "Joshua Kirby",
 		template: "%s | Joshua Kirby",
@@ -40,12 +40,12 @@ export const metadata: Metadata = {
 		"LLM",
 		"Full-stack",
 	],
-	authors: [{ name: "Joshua Kirby", url: "https://joshuakirby.webcam" }],
+	authors: [{ name: "Joshua Kirby", url: "https://joshuakirby.dev" }],
 	creator: "Joshua Kirby",
 	openGraph: {
 		type: "website",
 		locale: "en_GB",
-		url: "https://joshuakirby.webcam",
+		url: "https://joshuakirby.dev",
 		title: "Joshua Kirby",
 		description:
 			"I build reliable AI products end to end. Senior Product Designer & Frontend Developer with experience in LLM-backed products.",

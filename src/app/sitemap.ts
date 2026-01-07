@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 import { homeContent } from "@/content/home"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-	const baseUrl = "https://joshuakirby.webcam"
+	const baseUrl = "https://joshuakirby.dev"
 
 	const projectUrls = homeContent.projects.map((project) => ({
 		url: `${baseUrl}${project.href}`,

@@ -46,7 +46,7 @@ export async function generateMetadata(props: {
 		openGraph: {
 			title: `${project.title} | Joshua Kirby`,
 			description: project.bullets[0],
-			url: `https://joshuakirby.webcam/${params.project}`,
+			url: `https://joshuakirby.dev/${params.project}`,
 			images: [
 				{
 					url: project.image,

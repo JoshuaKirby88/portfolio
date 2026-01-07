@@ -32,7 +32,7 @@
 	"observability": {
 		"enabled": true
 	},
-	"routes": [{ "pattern": "joshuakirby.webcam", "custom_domain": true }],
+	"routes": [{ "pattern": "joshuakirby.dev", "custom_domain": true }],
 	"keep_names": false
 	/**
 	 * Smart Placement

@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
 			userAgent: "*",
 			allow: "/",
 		},
-		sitemap: "https://joshuakirby.webcam/sitemap.xml",
+		sitemap: "https://joshuakirby.dev/sitemap.xml",
 	}
 }
