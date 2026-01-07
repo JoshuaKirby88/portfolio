@@ -47,7 +47,7 @@ export const AddConversationContext = ({
 	})
 
 	return (
-		<div className="rounded-xl border bg-card p-6 text-sm">
+		<div className="my-10 rounded-xl border bg-card p-6 text-sm">
 			<style>{style}</style>
 
 			<div className="space-y-3">
@@ -55,9 +55,9 @@ export const AddConversationContext = ({
 					<div
 						key={msg.content}
 						className={cn(
-								`a-${componentId}-${i + 1}`,
-								"max-w-[85%] rounded-lg border px-3 py-2",
-								msg.role === "user" ? "ml-auto bg-background" : "bg-secondary",
+							`a-${componentId}-${i + 1}`,
+							"max-w-[85%] rounded-lg border px-3 py-2",
+							msg.role === "user" ? "ml-auto bg-background" : "bg-secondary",
 						)}
 					>
 						{msg.content}

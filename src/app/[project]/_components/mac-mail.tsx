@@ -11,7 +11,9 @@ export function MacMail(props: {
 }) {
 	const children = getTextFromChildren(props.children)
 	return (
-		<div className={cn("w-full rounded-xl border bg-muted", props.className)}>
+		<div
+			className={cn("my-10 w-full rounded-xl border bg-muted", props.className)}
+		>
 			<div className="flex w-fit items-center gap-2 p-3">
 				<div className="size-3 rounded-full bg-red-500/80" />
 				<div className="size-3 rounded-full bg-amber-500/80" />

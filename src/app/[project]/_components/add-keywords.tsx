@@ -33,7 +33,7 @@ export const AddKeywords = (props: { original: string; keywords: string }) => {
 	})
 
 	return (
-		<div className="relative block overflow-hidden rounded-xl border bg-card p-4 text-sm">
+		<div className="relative my-10 block overflow-hidden rounded-xl border bg-card p-4 text-sm">
 			<style>{keyframesStyles}</style>
 
 			<StatusDots
