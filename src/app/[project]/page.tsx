@@ -4,7 +4,6 @@ import { notFound } from "next/navigation"
 import type React from "react"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
-import remarkBreaks from "remark-breaks"
 import remarkGfm from "remark-gfm"
 import { homeContent } from "@/content/home"
 import { preprocessMarkdown } from "@/lib/preprocess-markdown"
@@ -85,7 +84,7 @@ export default async function Page(props: {
 	return (
 		<article className="prose prose-neutral dark:prose-invert container mx-auto max-w-4xl px-4 py-20">
 			<ReactMarkdown
-				remarkPlugins={[remarkBreaks, remarkGfm]}
+				remarkPlugins={[remarkGfm]}
 				rehypePlugins={[rehypeRaw]}
 				components={
 					{
