@@ -142,7 +142,7 @@ export default function Page() {
 					{homeContent.projects.map((project) => (
 						<BentoCell
 							key={project.title}
-							className="flex h-fit flex-col md:col-span-5 md:h-82"
+							className="flex h-fit flex-col md:col-span-5 md:h-87 lg:h-82"
 						>
 							<p className="font-bold text-lg">{project.title}</p>
 							<ul className="mt-4 flex-1 space-y-1.5">
@@ -161,10 +161,10 @@ export default function Page() {
 								prefetch
 								className={cn(
 									buttonVariants(),
-									"mt-2 ml-auto w-fit rounded-xl border-2 border-ring px-3.5 py-4.5",
+									"mt-5 ml-auto w-fit rounded-xl border-2 border-ring px-3.5 py-4.5 md:mt-0",
 								)}
 							>
-								View
+								{project.button}
 							</Link>
 						</BentoCell>
 					))}

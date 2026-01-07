@@ -61,8 +61,9 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 			bullets: [
 				"RAG chatbot handling **10,000+ messages** from **2,000+ users**, saving **~70 staff‑hours/week**.",
 				"**Zero‑maintenance** scraping pipeline that provides analytics to guide site improvements.",
-				"**Staff portal** to review chat history, manage chatbot knowledge, and instantly open the conversation a customer emails about.",
+				"Conducted **ablation studies** with **700+ relevance judgments** to optimise the RAG pipeline.",
 			],
+			button: "Read Case Study",
 		},
 		{
 			title: "AI Conversational Placement Test",
@@ -70,9 +71,10 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 			image: "/projects/placement-test.webp",
 			bullets: [
 				"Cut the placement process from **2 weeks** to **30 minutes** by replacing manual Zoom interviews.",
-				"Digitised a senior teacher's evaluation process using an **agentic workflow** to accurately assess the student's grammar limits.",
-				"Engineered a **multi-tenant** platform with custom **Git-style** version control for managing test configurations.",
+				"Automated a senior teacher's grading process with a state machine validated by a **600-sample** eval suite.",
+				"Designed a **multi-tenant** platform with **configurable auth** that grants ownership while supporting diverse privacy requirements.",
 			],
+			button: "Read Case Study",
 		},
 	],
 }
