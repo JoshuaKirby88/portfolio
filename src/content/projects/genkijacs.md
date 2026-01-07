@@ -4,7 +4,7 @@
 </chatbotimages>
 <br />
 
-I independently designed, built, and operated a production RAG chatbot and staff portal for [GenkiJACS](https://www.genkijacs.com/) (Japanese language school).
+I independently designed, built, and operated a production RAG chatbot and staff portal for [GenkiJACS](https://www.genkijacs.com) (Japanese language school).
 
 - **Role:** Software Engineer Intern (sole engineer, part-time)
 - **Location:** Fukuoka, Japan
@@ -14,25 +14,26 @@ I independently designed, built, and operated a production RAG chatbot and staff
 
 ### 1. Context & Problem
 
-[GenkiJACS](https://www.genkijacs.com/) teaches Japanese to students from around the world. For many, the website is their first contact with the school.
+[GenkiJACS](https://www.genkijacs.com) teaches Japanese to students from around the world.
+For many, the website is their first contact with the school.
 
-- **Support workload:** Sales staff were drowning in repetitive emails, even though most answers were sitting right there on the website.
+- **Support workload:** Support staff were drowning in repetitive emails, even though most answers were sitting right there on the website.
 - **Student experience:** Prospective students often hit a wall during key decision windows, waiting hours or days for a reply.
 - **Visibility:** The team had little insight into what students were actually asking, making it hard to spot the friction points blocking enrolment.
 
 ### 2. Solution
 
-I built a production chatbot embedded on [GenkiJACS](https://www.genkijacs.com/) and its sister school [I.C.NAGOYA](https://icn.gr.jp/)'s websites. It answers questions instantly using the latest school information.
+I built a complete RAG ecosystem that integrates with the existing websites of [GenkiJACS](https://www.genkijacs.com) and [I.C.NAGOYA](https://icn.gr.jp).
 
-Behind the scenes, I built a staff portal and an auto-scraping pipeline. This keeps the knowledge base fresh and the system running with zero ongoing maintenance.
+The solution consists of three distinct components:
+
+1. **Student Chatbot**: An embedded interface that provides instant answers using the latest school information.
+2. **Auto-Updating Knowledge Base**: An automated scraping pipeline that keeps the data fresh with zero ongoing maintenance.
+3. **Staff Portal**: An internal dashboard for oversight, analytics, and manual overrides (e.g., holiday closures).
 
 ### 3. Architecture & system design
 
-At a high level, the system has three moving parts:
-
-1. A chatbot interface for students.
-2. An auto-updating knowledge base.
-3. A staff portal for oversight and control.
+The core challenge was transforming messy user inquiries into optimised vector searches to ground the model in accurate context.
 
 #### The Conversation Pipeline
 
@@ -47,7 +48,7 @@ This ensures generic terms like "courses" map correctly to the school's specific
 </addkeywords>
 
 Next, I include context from earlier messages, because users rarely ask perfect, standalone questions.
-"Why is it required?" means nothing without the previous message.
+`Why is it required?` means nothing without the previous message.
 
 <addconversationcontext rephrased="Why is a **consent form** required for students under **18**?">
 User: From what age can I study?
@@ -56,7 +57,7 @@ User: Why is it required?
 </addconversationcontext>
 
 I also noticed that negative phrasing limited search results.
-If a user asks "Do you only offer **X**?", a vector query might miss the intermediate options.
+If a user asks `Do you only offer X?`, a vector query might miss the intermediate options.
 To fix this, I expand the query to include the positive alternative.
 
 <addkeywords original="Do you only offer beginner courses?" keywords="What intermediate and advanced courses do you offer?">
@@ -67,22 +68,21 @@ With the query polished, I [embed](https://platform.openai.com/docs/guides/embed
 The matches returned are split into two groups: **Website Content** and **Staff Notes**.
 
 **For Website Content**, I pull in the neighbouring chunks around each match.
-This creates a "sliding window" effect, providing the model with complete, coherent passages.
-This significantly reduces **hallucination rates** by ensuring answers are grounded in full context rather than fragmented sentences.
+This restores the semantic flow lost during chunking, ensuring the model works with complete passages rather than isolated fragments.
 
 <websitecontentprocess url="genkijacs.com" match="... live it. That's why we focus not just on teaching you the basics of grammar, ..." topneighbour="At Genki, we believe you can't learn a language using only a textbook. You need to feel it, use it, ..." bottomneighbour="... but also on how to live in Japan and communicate with real Japanese people." >
 </websitecontentprocess>
 
 **For Staff Notes**, if I simply sorted them by score, they often got buried in the middle of the context.
-To fix this, I placed them near the end of the prompt to ensure they take precedence over any conflicting **Website Content**.
+To fix this, I placed them near the end of the prompt to ensure they take precedence over any conflicting Website Content.
 
-Finally, I construct the prompt using a **system message**, the **assembled context** (with source URLs for inline citations), and the **original question**.
-
-**GPT-5.1** generates a reply in the user's original language, and I stream that answer back with clickable links.
+Finally, I construct the prompt using a system message, the assembled context (with source URLs for inline citations), and the original question.
+`GPT-5.1` generates a reply in the user's original language, and I stream that answer back with clickable links.
 
 #### Retrieval Performance
 
-To validate these design choices, I ran an ablation study using **GPT-5 mini** as a judge on a set of challenging user queries. With a Top-K of 10, the system performed over **700 individual relevance judgments** across these configurations.
+To validate these design choices, I ran an ablation study using `GPT-5 mini` as a judge on a set of challenging user queries.
+With a Top-K of 10, the system performed over **700** relevance judgments across these configurations.
 
 | Configuration                | Relevance | Impact       |
 | :--------------------------- | :-------- | :----------- |
@@ -103,7 +103,7 @@ The scraper then compares these chunks with what’s stored, and only updates th
 
 #### Staff portal for edge cases and insight
 
-To connect the chat interface with the staff portal, I built a seamless handoff mechanism.
+I built a seamless handoff mechanism to bridge the chat interface and the staff portal.
 When a student clicks to email the school, I inject the conversation ID directly into the email body.
 
 <macmail to="info@genkijacs.com" from="Joshua Kirby - jojokirby88@gmail.com" subject="Contact from chatbot">
@@ -115,12 +115,13 @@ If you would prefer that our team not review the conversation, you're welcome to
 
 This ID allows staff to instantly replay the conversation history, ensuring the support experience feels continuous rather than disjointed.
 
-To keep operations agile, the dashboard lets staff add time-sensitive entries like holiday closures or special course info, which they can toggle on or off instantly.
-It also surfaces high-level analytics, showing which pages are referenced most and where users are located, so the school can see exactly where the website is working and where students are getting stuck.
+To keep operations agile, the dashboard lets staff manage time-sensitive entries like holiday closures or special course info, which they can toggle on or off instantly.
+It also surfaces high-level analytics, showing which pages are referenced most by the AI and where users are located, so the school can see exactly where the website is working and where students are getting stuck.
 
 #### How the pieces fit together
 
-I built the core as a unified Next.js application. It handles both the complex backend logic and the staff dashboard in one place.
+I built the core as a unified Next.js application.
+It handles both the complex backend logic and the staff dashboard in one place.
 The chatbot widget is a static React app isolated in an iframe to make it drop-in compatible with any website platform.
 The system relies on [Pinecone](https://www.pinecone.io) to store knowledge and OpenAI to generate answers, with the infrastructure running on AWS.
 
@@ -128,7 +129,7 @@ The system relies on [Pinecone](https://www.pinecone.io) to store knowledge and 
 
 Being the sole technical person meant I held full responsibility for the project's success.
 I handled the design, implementation, and ongoing operations myself.
-My job was to turn a vague request into a concrete, production-ready system.
+My responsibility was to turn a broad problem statement into a production-ready system.
 
 In practice, this meant owning the full stack:
 
@@ -136,12 +137,12 @@ In practice, this meant owning the full stack:
 2.  **Backend:** The APIs and data pipeline for scraping.
 3.  **Ops:** Deployment and operations on AWS.
 
-I worked in short loops with the staff, analysing real conversation logs to guide development.
-This iterative process led to key features like **Staff Notes** to handle edge cases, and a **smart handoff feature** that detects high-stakes topics like pricing and offers a one-click email button instead of letting the bot guess.
+I worked in tight feedback loops with the staff, analysing real conversation logs to guide development.
+This iterative process led to key features like Staff Notes to handle edge cases, and a smart handoff feature that detects high-stakes topics like pricing and offers a one-click email button instead of letting the bot guess.
 
 ### 5. Impact & business value
 
-I deployed the system to production in **April 2024**.
+I deployed the system to production in April 2024.
 
 - **Usage:** Handled **10,000+** messages from **2,000+** unique users.
 - **Efficiency:** Saves roughly **70** staff-hours per week by offloading repetitive questions.
@@ -152,10 +153,9 @@ I deployed the system to production in **April 2024**.
 ### 6. Beyond code
 
 I also took ownership of the school's physical network for the six-storey building, configuring the VPN and troubleshooting connectivity issues.
+
 Before building the chatbot, I attempted to build an email auto-reply agent that pulled raw messages from IMAP.
-However, this project never shipped.
-The complexity of unstructured email threads outpaced my experience at the time.
-This failure taught me to prototype early before committing, and it directly inspired the pivot to a chat interface where I could control the environment to guarantee a higher quality result.
+However, this project never shipped. The complexity of unstructured email threads outpaced my experience at the time. This failure taught me to prototype early before committing, and it directly inspired the pivot to a chat interface where I could control the environment to guarantee a higher quality result.
 
 ### 7. Learnings & what I’d improve next
 
@@ -167,4 +167,5 @@ If I were to extend it, I would focus on:
 2.  **Richer analytics** to measure user satisfaction and resolution quality, not just raw usage.
 
 Overall, this project gave me hands‑on experience owning a production RAG system end‑to‑end.
+
 It’s exactly the kind of responsibility I’m looking for in my next role working on AI systems and internal tools.
