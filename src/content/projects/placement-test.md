@@ -10,6 +10,7 @@ It takes a 2-week scheduling bottleneck and compresses it into a 30-minute, on-d
 - **Status:** Pilot at GenkiJACS
 - **Tech:** [Next.js](https://nextjs.org) ([OpenNext](https://opennext.js.org)), [Cloudflare Workers](https://workers.cloudflare.com) & [D1](https://developers.cloudflare.com/d1), [Vercel AI SDK](https://sdk.vercel.ai)
 - **Evals:** **600-Sample** Regression Suite
+- **Website:** [languagetest.net](https://languagetest.net)
 
 ### 1. Context: The 2-Week Bottleneck
 
