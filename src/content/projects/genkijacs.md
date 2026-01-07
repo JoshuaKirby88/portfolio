@@ -10,6 +10,7 @@ I independently designed, built, and operated a production RAG chatbot and staff
 - **Duration:** Sep 2023 – Jun 2024
 - **Tech:** TypeScript, Python, [Next.js](https://nextjs.org), AWS, [Pinecone](https://www.pinecone.io) (vector DB), OpenAI
 - **Impact:** **10,000+** messages, **~70** hours saved per week
+- **Deployed At:** [GenkiJACS](https://www.genkijacs.com) and [I.C.NAGOYA](https://icn.gr.jp)
 
 ### 1. Context & Problem
 
