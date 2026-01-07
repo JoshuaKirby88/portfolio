@@ -106,12 +106,12 @@ export function FanOutArchitecture(props: {
 			</div>
 
 			{/* Fan Out Lanes */}
-			<div className="mt-7 grid grid-cols-1 gap-10 md:grid-cols-3">
+			<div className="mt-7 grid grid-cols-3 gap-5 pb-5 sm:gap-10">
 				{props.candidates.map((candidate, i) => {
 					const isPass = candidate.status === "pass"
 					const Icon = isPass ? CheckIcon : XIcon
 					return (
-						<div key={i} className={cn(`a-card-${id}-1`, "space-y-2")}>
+						<div key={i} className={`a-card-${id}-1 space-y-2`}>
 							<div
 								className={cn(
 									"flex flex-col gap-3 rounded-lg border px-3 py-1.5 text-center font-semibold",
