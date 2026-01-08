@@ -24,7 +24,7 @@ end to end.`,
 			},
 		],
 	},
-	description: `I’m a 2nd‑year AI & CS student with experience shipping production LLM tools, including an automated conversational placement test.
+	description: `I’m a 2nd‑year AI & CS student with experience shipping production-grade LLM applications for real-world businesses.
 I like taking ambiguous ideas and turning them into reliable AI products.`,
 	workExperience: {
 		title: "Work Experience",
