@@ -9,7 +9,7 @@ It takes a 2-week scheduling bottleneck and compresses it into a 30-minute, on-d
 - **Role:** Product Engineer (Solo Founder)
 - **Status:** Pilot at GenkiJACS
 - **Tech:** [Next.js](https://nextjs.org) ([OpenNext](https://opennext.js.org)), [Cloudflare Workers](https://workers.cloudflare.com) & [D1](https://developers.cloudflare.com/d1), [Vercel AI SDK](https://sdk.vercel.ai)
-- **Evals:** **600-Sample** Regression Suite
+- **Evals:** **600-Sample** Benchmark
 - **Website:** [languagetest.net](https://languagetest.net)
 
 ### 1. Context: The 2-Week Bottleneck
@@ -23,24 +23,24 @@ Teachers, meanwhile, burn hours on repetitive beginner assessments instead of te
 
 I needed an asynchronous solution that was rigorous enough to replace the human expert.
 
-### 2. Solution: An Agentic Examiner
+### 2. Solution: A Virtual Examiner
 
 I recognised early on that I lacked the domain expertise to design a language test.
 Building the logic on my own assumptions would have resulted in a flawed product.
 
 To fix this, I interviewed a senior teacher and analysed hours of audio recordings from real placement tests.
-I discovered that experts don't just "chat." They follow a strict logic to verify specific skills.
+I discovered that experts don't just "chat." They follow a structured method to assess proficiency.
 
 #### How It Works
 
-A school configures a test by linking questions to target grammar patterns (e.g., "Question 1 checks for Past Tense").
+A school configures a test by linking questions to target grammar patterns (like "Question 1 checks for Past Tense").
 The AI's goal is to elicit that specific pattern from the student.
 
-I codified this behaviour into a state machine:
+I formalised this behaviour into a state machine:
 
 1.  **Ask:** Pose the configured question.
 
-2.  **Hint:** If the target grammar is missing, ask a specific follow-up to elicit it (e.g. "What did you do yesterday?").
+2.  **Hint:** If the target grammar is missing, ask a specific follow-up to elicit it (like "What did you do yesterday?").
 
 3.  **Explicit:** If they still miss it, explicitly instruct them to use the pattern.
 
@@ -54,7 +54,7 @@ This ensures every student gets a standardised chance to prove their ability, un
 ### 3. Challenge I: Measuring "Correctness"
 
 The hardest technical challenge was assessing the student's language level.
-Ensuring an AI reliably detects specific grammar patterns like "Conditional Ba-Form" in a messy, 3-minute spoken transcript by a language learner is difficult.
+Ensuring an AI reliably detects specific grammar patterns like "Conditional Ba-Form" in a noisy, 3-minute spoken transcript by a language learner is difficult.
 
 I solved this by treating the assessment as a precise signal extraction problem, ensuring the system hears every mistake and validates every grammar individually.
 
@@ -93,7 +93,7 @@ This infrastructure transforms prompt engineering from guesswork into a determin
 
 #### Why Extraction, Not Scoring?
 
-I avoided having the AI directly assign a level (e.g., "N4") because AI scoring is subjective and prone to drift.
+I avoided having the AI directly assign a level (like "N4") because AI scoring is subjective and prone to drift.
 Instead, I treat the AI as a pattern extractor, not a judge.
 Its only job is to flag evidence of grammar usage.
 The final score is calculated using deterministic math based on the [Minna no Nihongo](https://www.3anet.co.jp/en/series.html) curriculum.
@@ -110,7 +110,7 @@ The challenge was building a single platform that adapts to different business n
 
 I solved this by building a multi-tenant architecture on Next.js:
 
-- **Dynamic Subdomains:** Every school gets their own URL automatically (e.g., `genkijacs.languagetest.net`).
+- **Dynamic Subdomains:** Every school gets their own URL automatically (like `genkijacs.languagetest.net`).
   I used [Middleware](https://nextjs.org/docs/14/app/building-your-application/routing/middleware) to route requests based on the hostname.
   This allows me to onboard new schools and display their unique branding instantly, without deploying new infrastructure.
 
@@ -141,5 +141,3 @@ If I were to extend this platform, I would focus on:
    I want to explore streaming architectures and hybrid model orchestration to make the conversation feel natural and instant, without reverting to low-fidelity STT.
 
 Overall, this project was a lesson in system design, balancing the messy reality of spoken audio with the strict requirements of academic grading.
-
-It demonstrates my ability to take a vague business problem ("Automate the placement test") and architect a reliable, multi-tenant solution from scratch.
