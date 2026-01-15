@@ -10,7 +10,7 @@ end to end.`,
 			"Native in Japanese and English",
 		],
 		links: [
-			{ name: "Email", icon: MailIcon, href: "mailto:jojokirby88@gmail.com" },
+			{ name: "Email", icon: MailIcon, href: "mailto:joshua@joshuakirby.dev" },
 			{
 				name: "LinkedIn",
 				icon: LinkIcon,

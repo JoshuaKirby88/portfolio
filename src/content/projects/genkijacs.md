@@ -109,7 +109,7 @@ The chatbot and portal are connected by a topic-driven escalation logic.
 The chatbot detects high-stakes topics (like pricing) to proactively suggest contacting staff.
 When a student clicks the dedicated email button, I inject the conversation ID directly into the draft. This simple addition allows staff to instantly pull up the full chat history within the portal.
 
-<macmail to="info@genkijacs.com" from="Joshua Kirby - jojokirby88@gmail.com" subject="Contact from chatbot">
+<macmail to="info@genkijacs.com" from="Joshua Kirby - joshua@joshuakirby.dev" subject="Contact from chatbot">
 Conversation ID: 7e845ee1-48ad-43a8-9124-4038bc53522f
 
 (The above ID will help us quickly locate and review your conversation with our chatbot, ensuring we can provide you with the best possible support.
