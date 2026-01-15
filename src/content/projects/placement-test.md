@@ -8,7 +8,7 @@ It takes a 2-week scheduling bottleneck and compresses it into a 30-minute, on-d
 
 - **Role:** Product Engineer (Solo Founder)
 - **Status:** Pilot at GenkiJACS
-- **Tech:** [Next.js](https://nextjs.org) ([OpenNext](https://opennext.js.org)), [Cloudflare Workers](https://workers.cloudflare.com) & [D1](https://developers.cloudflare.com/d1), [Vercel AI SDK](https://sdk.vercel.ai)
+- **Tech:** [Next.js](https://nextjs.org) ([OpenNext](https://opennext.js.org)), [Cloudflare](https://cloudflare.com) ([Workers](https://workers.cloudflare.com), [Durable Objects](https://developers.cloudflare.com/durable-objects), [D1](https://developers.cloudflare.com/d1), WebSockets), [Vercel AI SDK](https://sdk.vercel.ai)
 - **Evals:** **600-Sample** Benchmark
 - **Website:** [languagetest.net](https://languagetest.net)
 
@@ -58,7 +58,9 @@ Ensuring an AI reliably detects specific grammar patterns like "Conditional Ba-F
 
 I solved this by treating the assessment as a precise signal extraction problem, ensuring the system hears every mistake and validates every grammar individually.
 
-1. **Live Interview:** During the test, I use `Gemini 2.5 Pro` to drive the dialogue. I leverage its native multimodal capabilities to process the student's audio directly. This captures the student's speech verbatim, preserving misconjugations and particle errors that standard STT models typically auto-correct.
+1. **Live Interview:** During the test, I use `Gemini 3 Flash` to drive the dialogue.
+   I leverage its native multimodal capabilities to process the student's audio directly.
+   This captures the student's speech verbatim, preserving misconjugations and particle errors that standard STT models typically auto-correct.
 
 2. **Asynchronous Grading:** Once the interview concludes, the pipeline performs an exhaustive search on every student response:
     - **Parallel Extraction:** The system scans each answer against **~270** grammar patterns.
@@ -137,7 +139,7 @@ If I were to extend this platform, I would focus on:
 
 1. **Data-Driven Pruning:** The current system checks **~270** patterns per student response, which costs **~$0.50**.
    I plan to analyse the pilot data to remove low-signal patterns and reduce costs.
-2. **Reducing Voice Latency:** Prioritising quality by using `Gemini 2.5 Pro` and `Gemini 2.5 TTS` introduced noticeable delays.
+2. **Reducing Voice Latency:** The sequential nature of "Transcribe → Evaluate → Generate → Stream" introduces noticeable delays.
    I want to explore streaming architectures and hybrid model orchestration to make the conversation feel natural and instant, without reverting to low-fidelity STT.
 
 Overall, this project was a lesson in system design, balancing the messy reality of spoken audio with the strict requirements of academic grading.
