@@ -37,7 +37,7 @@ export async function generateMetadata(props: {
 	)
 
 	if (!project) {
-		throw new Error("Project not found")
+		notFound()
 	}
 
 	return {
