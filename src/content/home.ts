@@ -31,7 +31,7 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 		experiences: [
 			{
 				name: "GenkiJACS",
-				description: "Software Engineer Intern",
+				description: "Software Engineer",
 				duration: "Sep 2023 – Jun 2024",
 			},
 			{
@@ -55,12 +55,12 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 	},
 	projects: [
 		{
-			title: "GenkiJACS Internship",
+			title: "RAG Customer Support Chatbot",
 			href: "/genkijacs",
 			image: "/projects/genkijacs.webp",
 			bullets: [
-				"RAG chatbot handling **10,000+ messages** from **2,000+ users**, saving **~70 staff‑hours/week**.",
-				"**Zero‑maintenance** scraping pipeline that provides analytics to guide site improvements.",
+				"Designed and deployed a RAG chatbot handling **10,000+ messages** from **2,000+ users**, saving **~70 staff‑hours/week**.",
+				"Engineered a **zero‑maintenance** scraping pipeline that provides analytics to guide site improvements.",
 				"Conducted **ablation studies** with **700+ relevance judgments** to optimise the RAG pipeline.",
 			],
 			button: "Read Case Study",

@@ -1,11 +1,11 @@
-## GenkiJACS 1-year Internship
+## Production RAG at GenkiJACS
 
 <chatbotimages images='[{"src": "/genkijacs/genkijacs-chatbot.webp", "alt": "GenkiJACS Chatbot"}, {"src": "/genkijacs/nagoya-chatbot.webp", "alt": "Nagoya Chatbot"}]'>
 </chatbotimages>
 
 I independently designed, built, and operated a production RAG chatbot and staff portal for [GenkiJACS](https://www.genkijacs.com) (Japanese language school).
 
-- **Role:** Software Engineer Intern (sole engineer, part-time)
+- **Role:** Software Engineer (sole engineer, part-time)
 - **Location:** Fukuoka, Japan
 - **Duration:** Sep 2023 – Jun 2024
 - **Tech:** TypeScript, Python, [Next.js](https://nextjs.org), AWS, [Pinecone](https://www.pinecone.io) (vector DB), OpenAI
