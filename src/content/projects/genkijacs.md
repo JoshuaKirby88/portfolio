@@ -9,7 +9,7 @@ I independently designed, built, and operated a production RAG chatbot and staff
 - **Location:** Fukuoka, Japan
 - **Duration:** Sep 2023 – Jun 2024
 - **Tech:** TypeScript, Python, [Next.js](https://nextjs.org), AWS, [Pinecone](https://www.pinecone.io) (vector DB), OpenAI
-- **Impact:** **10,000+** messages, **~70** hours saved per week
+- **Impact:** **14,000+** messages, **~70** hours saved per week
 - **Deployed At:** [GenkiJACS](https://www.genkijacs.com) and [I.C.NAGOYA](https://icn.gr.jp)
 
 ### 1. Context & Problem
@@ -150,7 +150,7 @@ This iterative process led to key features like Staff Notes to handle edge cases
 
 I deployed the system to production in April 2024.
 
-- **Usage:** Handled **10,000+** messages from **2,000+** unique users.
+- **Usage:** Handled **14,000+** messages from **2,000+** unique users.
 - **Efficiency:** Saves **~70** staff-hours per week by offloading repetitive questions.
 - **Operations:** Runs with **zero** manual maintenance.
 - **Student experience:** Provides instant, **24/7** answers in any language.

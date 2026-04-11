@@ -59,7 +59,7 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 			href: "/genkijacs",
 			image: "/projects/genkijacs.webp",
 			bullets: [
-				"Designed and deployed a RAG chatbot handling **10,000+ messages** from **2,000+ users**, saving **~70 staff‑hours/week**.",
+				"Designed and deployed a RAG chatbot handling **14,000+ messages** from **2,000+ users**, saving **~70 staff‑hours/week**.",
 				"Engineered a **zero‑maintenance** scraping pipeline that provides analytics to guide site improvements.",
 				"Conducted **ablation studies** with **700+ relevance judgments** to optimise the RAG pipeline.",
 			],
