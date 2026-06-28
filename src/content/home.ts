@@ -48,7 +48,7 @@ I like taking ambiguous ideas and turning them into reliable AI products.`,
 				name: "University of Birmingham",
 				bullets: [
 					"B.Sc. Artificial Intelligence & Computer Science",
-					"2nd year (expected graduation 2027)",
+					"2nd year: First Class Level (85% 2nd Year Average)",
 				],
 			},
 		],
