@@ -5,12 +5,11 @@ export const ThemeImage = ({
 	src,
 	alt,
 	className,
-	children,
 	caption,
 	...props
 }: React.ComponentProps<typeof Image> & { caption?: string }) => {
 	return (
-		<div className="not-prose my-10">
+		<figure className="not-prose my-10">
 			<div className="overflow-hidden rounded-xl border bg-background">
 				<Image
 					src={`${src}light.webp`}
@@ -25,11 +24,11 @@ export const ThemeImage = ({
 					{...props}
 				/>
 			</div>
-			{caption && (
-				<div className="mx-10 mt-2 text-center text-gray-500 text-sm">
+			{caption ? (
+				<figcaption className="mx-10 mt-2 text-center text-gray-500 text-sm">
 					{caption}
-				</div>
-			)}
-		</div>
+				</figcaption>
+			) : null}
+		</figure>
 	)
 }

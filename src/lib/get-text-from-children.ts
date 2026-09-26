@@ -9,8 +9,8 @@ export function getTextFromChildren(children: ReactNode): string {
 		return children.map(getTextFromChildren).join("")
 	}
 
-	if (React.isValidElement(children)) {
-		return getTextFromChildren((children.props as any).children)
+	if (React.isValidElement<{ children?: ReactNode }>(children)) {
+		return getTextFromChildren(children.props.children)
 	}
 
 	return ""

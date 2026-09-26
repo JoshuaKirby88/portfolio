@@ -105,10 +105,14 @@ export const generateCycleCSS = (options: {
 			const isFirst = step.start < 0.001
 			const initialStyle =
 				isFirst && !options.accumulate ? options.on : options.off
+			const reducedMotionStyle = options.accumulate ? options.on : initialStyle
 
 			return `.a-${options.componentId}-${i} { ${initialStyle} animation: k-${options.componentId}-${i} ${options.duration}ms cubic-bezier(0.4, 0, 0.2, 1) infinite both; will-change: transform, opacity; }
 @keyframes k-${options.componentId}-${i} {
 	${cssKeyframes}
+}
+@media (prefers-reduced-motion: reduce) {
+	.a-${options.componentId}-${i} { ${reducedMotionStyle} animation: none; will-change: auto; }
 }`
 		})
 		.join("\n")

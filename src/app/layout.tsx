@@ -28,13 +28,11 @@ export const metadata: Metadata = {
 		default: "Joshua Kirby",
 		template: "%s | Joshua Kirby",
 	},
-	description:
-		"I build reliable AI products end to end. Senior Product Designer & Frontend Developer with experience in LLM-backed products.",
+	description: "AI & CS student, class of 2027, building reliable AI products.",
 	keywords: [
 		"Joshua Kirby",
 		"AI Engineer",
 		"Frontend Developer",
-		"Product Designer",
 		"TypeScript",
 		"Next.js",
 		"LLM",
@@ -48,13 +46,13 @@ export const metadata: Metadata = {
 		url: "https://joshuakirby.dev",
 		title: "Joshua Kirby",
 		description:
-			"I build reliable AI products end to end. Senior Product Designer & Frontend Developer with experience in LLM-backed products.",
+			"AI & CS student, class of 2027, building reliable AI products.",
 		siteName: "Joshua Kirby Portfolio",
 		images: [
 			{
 				url: "/headshot.webp",
-				width: 800,
-				height: 800,
+				width: 1024,
+				height: 1024,
 				alt: "Joshua Kirby",
 			},
 		],

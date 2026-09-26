@@ -1,8 +1,9 @@
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import type React from "react"
-import ReactMarkdown from "react-markdown"
+import ReactMarkdown, { type Components } from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import remarkGfm from "remark-gfm"
 import { homeContent } from "@/content/home"
@@ -17,12 +18,10 @@ import { MacTerminal } from "./_components/mac-terminal"
 import { ThemeImage } from "./_components/theme-image"
 import { WebsiteContentProcess } from "./_components/website-content-process"
 
-type StringProps<T extends React.JSXElementConstructor<any>> = {
-	[key in keyof React.ComponentProps<T>]: string
-}
-
 const projects = ["genkijacs", "placement-test"]
 const tagsToProcess = ["macmail", "addconversationcontext", "macterminal"]
+
+export const dynamicParams = false
 
 export function generateStaticParams() {
 	return projects.map((slug) => ({ project: slug }))
@@ -42,16 +41,16 @@ export async function generateMetadata(props: {
 
 	return {
 		title: project.title,
-		description: project.bullets[0],
+		description: project.description,
 		openGraph: {
 			title: `${project.title} | Joshua Kirby`,
-			description: project.bullets[0],
+			description: project.description,
 			url: `https://joshuakirby.dev/${params.project}`,
 			images: [
 				{
 					url: project.image,
-					width: 1200,
-					height: 630,
+					width: project.imageWidth,
+					height: project.imageHeight,
 					alt: project.title,
 				},
 			],
@@ -59,7 +58,7 @@ export async function generateMetadata(props: {
 		twitter: {
 			card: "summary_large_image",
 			title: `${project.title} | Joshua Kirby`,
-			description: project.bullets[0],
+			description: project.description,
 			images: [project.image],
 		},
 	}
@@ -75,7 +74,10 @@ export default async function Page(props: {
 		notFound()
 	}
 
-	const rawMarkdown = (await import(`@/content/projects/${project}.md`)).default
+	const rawMarkdown = await readFile(
+		join(process.cwd(), "src", "content", "projects", `${project}.md`),
+		"utf8",
+	)
 	const markdown = preprocessMarkdown({
 		markdown: rawMarkdown,
 		tagsToProcess,
@@ -86,59 +88,62 @@ export default async function Page(props: {
 			<ReactMarkdown
 				remarkPlugins={[remarkGfm]}
 				rehypePlugins={[rehypeRaw]}
-				components={
-					{
-						a: (props: React.ComponentProps<"a">) => {
-							const isExternal = props.href?.startsWith("https://")
-							if (isExternal) {
-								return (
-									<a {...props} target="_blank" rel="noopener noreferrer" />
-								)
-							}
-							return <Link href={props.href || ""} {...props} />
-						},
-						code: ({ className, ...props }: React.ComponentProps<"code">) => {
-							return (
-								<code
-									{...props}
-									className={cn(className, "before:hidden after:hidden")}
-								/>
-							)
-						},
-						addkeywords: (props: StringProps<typeof AddKeywords>) => (
-							<AddKeywords {...props} />
-						),
-						addconversationcontext: (
-							props: StringProps<typeof AddConversationContext>,
-						) => <AddConversationContext {...props} />,
-						chatbotimages: (props: StringProps<typeof ChatbotImages>) => (
-							<ChatbotImages {...props} images={JSON.parse(props.images)} />
-						),
-						websitecontentprocess: (
-							props: StringProps<typeof WebsiteContentProcess>,
-						) => <WebsiteContentProcess {...props} />,
-						macterminal: (props: StringProps<typeof MacTerminal>) => (
-							<MacTerminal {...props} />
-						),
-						macmail: (props: StringProps<typeof MacMail>) => (
-							<MacMail {...props} />
-						),
-						themeimage: (props: React.ComponentProps<typeof ThemeImage>) => (
-							<ThemeImage {...props} />
-						),
-						fanoutarchitecture: (
-							props: StringProps<typeof FanOutArchitecture>,
-						) => (
-							<FanOutArchitecture
-								{...props}
-								candidates={JSON.parse(props.candidates)}
-							/>
-						),
-					} as any
-				}
+				components={markdownComponents}
 			>
 				{markdown}
 			</ReactMarkdown>
 		</article>
 	)
+}
+
+const markdownComponents = {
+	a: (props) => {
+		const isExternal = props.href?.startsWith("https://")
+		if (isExternal) {
+			return <a {...props} target="_blank" rel="noopener noreferrer" />
+		}
+		return <Link href={props.href || ""} {...props} />
+	},
+	code: ({ className, ...props }) => (
+		<code {...props} className={cn(className, "before:hidden after:hidden")} />
+	),
+	addkeywords: ({ original, keywords }) => (
+		<AddKeywords original={original} keywords={keywords} />
+	),
+	addconversationcontext: ({ rephrased, children }) => (
+		<AddConversationContext rephrased={rephrased}>
+			{children}
+		</AddConversationContext>
+	),
+	chatbotimages: ({ images }) => <ChatbotImages images={parseJson(images)} />,
+	websitecontentprocess: (props) => <WebsiteContentProcess {...props} />,
+	macterminal: ({ children, className }) => (
+		<MacTerminal className={className}>{children}</MacTerminal>
+	),
+	macmail: ({ to, from, subject, children, className }) => (
+		<MacMail to={to} from={from} subject={subject} className={className}>
+			{children}
+		</MacMail>
+	),
+	themeimage: ({ src, alt, width, height, sizes, className, caption }) => (
+		<ThemeImage
+			src={src}
+			alt={alt}
+			width={Number(width)}
+			height={Number(height)}
+			sizes={sizes}
+			className={className}
+			caption={caption}
+		/>
+	),
+	fanoutarchitecture: ({ transcript, candidates }) => (
+		<FanOutArchitecture
+			transcript={transcript}
+			candidates={parseJson(candidates)}
+		/>
+	),
+} satisfies Components
+
+function parseJson<T>(value: string): T {
+	return JSON.parse(value) as T
 }

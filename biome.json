@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -16,7 +16,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"nursery": {
 				"useSortedClasses": {
 					"level": "info",
@@ -48,6 +48,18 @@
 			"project": "recommended"
 		}
 	},
+	"overrides": [
+		{
+			"includes": ["src/app/**/*.{ts,tsx}", "src/components/ui/**/*.{ts,tsx}"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useComponentExportOnlyModules": "off"
+					}
+				}
+			}
+		}
+	],
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double",

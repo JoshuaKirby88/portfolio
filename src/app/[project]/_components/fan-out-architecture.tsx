@@ -118,7 +118,7 @@ export function FanOutArchitecture(props: {
 									"bg-background",
 								)}
 							>
-								"{candidate.word}"
+								<q>{candidate.word}</q>
 							</div>
 
 							<div

@@ -1,6 +1,6 @@
 import {
 	BriefcaseBusinessIcon,
-	GithubIcon,
+	CodeXmlIcon,
 	GraduationCapIcon,
 	SmileIcon,
 } from "lucide-react"
@@ -25,10 +25,9 @@ export default function Page() {
 							<div className="relative h-full w-full overflow-hidden rounded-md">
 								<Image
 									src="/headshot.webp"
-									alt="Profile picture"
+									alt="Joshua Kirby"
 									fill
 									priority
-									unoptimized
 									sizes="(min-width: 1024px) 512px, (min-width: 768px) 50vw, 100vw"
 									className="bg-card object-cover"
 								/>
@@ -64,6 +63,7 @@ export default function Page() {
 										href={link.href}
 										download={link.download}
 										target="_blank"
+										rel="noopener noreferrer"
 										className="flex items-center space-x-1 rounded-full border bg-background px-3 py-0.5 text-sm hover:underline"
 									>
 										<link.icon className="size-3.5" />
@@ -85,7 +85,7 @@ export default function Page() {
 						</BentoCell>
 					</div>
 
-					<BentoCell className="h-64 md:col-span-6">
+					<BentoCell className="min-h-64 md:col-span-6">
 						<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
 							<BriefcaseBusinessIcon className="size-5" />
 						</div>
@@ -111,7 +111,7 @@ export default function Page() {
 							))}
 						</ul>
 					</BentoCell>
-					<BentoCell className="h-64 md:col-span-4">
+					<BentoCell className="min-h-64 md:col-span-4">
 						<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
 							<GraduationCapIcon className="size-5" />
 						</div>
@@ -179,8 +179,9 @@ export default function Page() {
 						"text-muted-foreground",
 					)}
 					target="_blank"
+					rel="noopener noreferrer"
 				>
-					<GithubIcon className="size-3.5" />
+					<CodeXmlIcon className="size-3.5" />
 					View site source
 				</Link>
 			</p>
