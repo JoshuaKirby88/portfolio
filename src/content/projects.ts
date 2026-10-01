@@ -32,7 +32,7 @@ export const projects = [
 	{
 		title: "Attacking Whisper",
 		slug: "attacking-whisper",
-		image: "/attacking-whisper/preview.webp",
+		image: "/projects/attacking-whisper.webp",
 		imageWidth: 1200,
 		imageHeight: 630,
 		description:
