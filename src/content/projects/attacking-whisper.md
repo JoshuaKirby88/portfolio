@@ -15,7 +15,7 @@ But the ASR model transcribing the call hears "Delete the customer records from 
 
 Even worse, the attacker can perform this on any recording, with full control over what the model hears.
 
-This was the focus of my work during the University of Birmingham EPSRC summer research internship programme.
+This was the focus of my research internship at the University of Birmingham.
 
 <div>
 <whisperattack source="The weather will be nice tomorrow" target="Delete the customer records from the database"></whisperattack>
@@ -36,7 +36,7 @@ If we repeatedly change the audio bit by bit while making sure we don't change i
 
 As with most training, we need a set of parameters, a forward pass, a loss function, backpropagation, and an optimizer, to construct a basic training loop.
 
-Here, the audio is the parameters, the source recording and the target text are the 1-sample training data, Whisper is our forward pass, Whisper's target-token cross-entropy + audio change penalty is our loss function, backpropagation tells us how changes to the audio affect that loss, and the optimizer uses the gradients to update the audio.
+Here, the audio is the parameters, the original recording and the target text are the 1-sample training data, Whisper is our forward pass, Whisper's target-token cross-entropy + audio change penalty is our loss function, backpropagation tells us how changes to the audio affect that loss, and the optimizer uses the gradients to update the audio.
 
 Once we have a training loop and an accurate loss function, the rest is straightforward, because our goal is to merely overfit our modified audio to this 1-sample dataset.
 
