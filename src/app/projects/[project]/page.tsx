@@ -1,12 +1,20 @@
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
+import { HouseIcon } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import ReactMarkdown, { type Components } from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import remarkGfm from "remark-gfm"
-import { homeContent } from "@/content/home"
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { projects } from "@/content/projects"
 import { preprocessMarkdown } from "@/lib/preprocess-markdown"
 import { cn } from "@/lib/utils"
 import { AddConversationContext } from "./_components/add-conversation-context"
@@ -19,22 +27,19 @@ import { ThemeImage } from "./_components/theme-image"
 import { WebsiteContentProcess } from "./_components/website-content-process"
 import { WhisperAttack } from "./_components/whisper-attack-lazy"
 
-const projects = ["genkijacs", "placement-test", "attacking-whisper"]
 const tagsToProcess = ["macmail", "addconversationcontext", "macterminal"]
 
 export const dynamicParams = false
 
 export function generateStaticParams() {
-	return projects.map((slug) => ({ project: slug }))
+	return projects.map(({ slug }) => ({ project: slug }))
 }
 
 export async function generateMetadata(props: {
 	params: Promise<{ project: string }>
 }): Promise<Metadata> {
 	const params = await props.params
-	const project = homeContent.projects.find(
-		(p) => p.href === `/${params.project}`,
-	)
+	const project = projects.find((p) => p.slug === params.project)
 
 	if (!project) {
 		notFound()
@@ -43,10 +48,11 @@ export async function generateMetadata(props: {
 	return {
 		title: project.title,
 		description: project.description,
+		alternates: { canonical: `/projects/${project.slug}` },
 		openGraph: {
 			title: `${project.title} | Joshua Kirby`,
 			description: project.description,
-			url: `https://joshuakirby.dev/${params.project}`,
+			url: `https://joshuakirby.dev/projects/${project.slug}`,
 			images: [
 				{
 					url: project.image,
@@ -71,7 +77,7 @@ export default async function Page(props: {
 	const params = await props.params
 	const project = params.project
 
-	if (!projects.includes(project)) {
+	if (!projects.some((p) => p.slug === project)) {
 		notFound()
 	}
 
@@ -79,13 +85,39 @@ export default async function Page(props: {
 		join(process.cwd(), "src", "content", "projects", `${project}.md`),
 		"utf8",
 	)
+	const titleMatch = /^## ([^\r\n]+)\r?\n/.exec(rawMarkdown)
+	if (!titleMatch) {
+		throw new Error(`Missing case study title in ${project}.md`)
+	}
 	const markdown = preprocessMarkdown({
-		markdown: rawMarkdown,
+		markdown: rawMarkdown.slice(titleMatch[0].length),
 		tagsToProcess,
 	})
 
 	return (
 		<article className="prose prose-neutral dark:prose-invert container mx-auto max-w-4xl px-4 py-20 [&_h3]:mt-10">
+			<header className="not-prose mb-8">
+				<Breadcrumb>
+					<BreadcrumbList>
+						<BreadcrumbItem>
+							<BreadcrumbLink
+								render={<Link href="/" />}
+								className="inline-flex items-center gap-1.5"
+							>
+								<HouseIcon className="size-3.5" aria-hidden="true" />
+								Home
+							</BreadcrumbLink>
+						</BreadcrumbItem>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbLink render={<Link href="/projects" />}>
+								Projects
+							</BreadcrumbLink>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
+				<h1 className="mt-8 font-semibold text-3xl">{titleMatch[1]}</h1>
+			</header>
 			<ReactMarkdown
 				remarkPlugins={[remarkGfm]}
 				rehypePlugins={[rehypeRaw]}

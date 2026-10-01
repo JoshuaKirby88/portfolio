@@ -1,4 +1,5 @@
 import {
+	ArrowRightIcon,
 	BriefcaseBusinessIcon,
 	CodeXmlIcon,
 	GraduationCapIcon,
@@ -9,9 +10,14 @@ import Link from "next/link"
 import ReactMarkdown from "react-markdown"
 import { buttonVariants } from "@/components/ui/button"
 import { homeContent } from "@/content/home"
+import { projects } from "@/content/projects"
 import { cn } from "@/lib/utils"
 
 export default function Page() {
+	const featuredProjects = projects.filter((project) =>
+		homeContent.featuredProjects.includes(project.slug),
+	)
+
 	return (
 		<div>
 			<h1 className="mt-30 mb-10 whitespace-pre-wrap text-center font-semibold text-2xl">
@@ -139,10 +145,10 @@ export default function Page() {
 						</ul>
 					</BentoCell>
 
-					{homeContent.projects.map((project) => (
+					{featuredProjects.map((project) => (
 						<BentoCell
 							key={project.title}
-							className="flex h-fit flex-col md:col-span-5 md:h-87 lg:h-82"
+							className="flex flex-col md:col-span-5"
 						>
 							<p className="font-bold text-lg">{project.title}</p>
 							<ul className="mt-4 flex-1 space-y-1.5">
@@ -157,17 +163,31 @@ export default function Page() {
 								))}
 							</ul>
 							<Link
-								href={project.href}
+								href={`/projects/${project.slug}`}
 								prefetch
 								className={cn(
 									buttonVariants(),
-									"mt-5 ml-auto w-fit rounded-xl border-2 border-ring px-3.5 py-4.5 md:mt-0",
+									"mt-5 ml-auto w-fit rounded-xl border-2 border-ring px-3.5 py-4.5",
 								)}
 							>
-								{project.button}
+								Read Case Study
 							</Link>
 						</BentoCell>
 					))}
+					<BentoCell className="flex items-center justify-between gap-4 py-4 md:col-span-10 lg:py-4">
+						<p className="font-bold text-lg">More of my work</p>
+						<Link
+							href="/projects"
+							aria-label="View all projects"
+							className={cn(
+								buttonVariants(),
+								"rounded-xl border-2 border-ring px-3.5 py-4.5",
+							)}
+						>
+							View all
+							<ArrowRightIcon className="size-4" aria-hidden="true" />
+						</Link>
+					</BentoCell>
 				</div>
 			</div>
 

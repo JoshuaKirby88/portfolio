@@ -1,4 +1,4 @@
-import recording from "../../../../public/attacking-whisper/checkpoints.json"
+import recording from "../../../../../public/attacking-whisper/checkpoints.json"
 
 const AMPLITUDE_SCALE = 52 / Math.max(...recording.sourcePeaks)
 const BASELINE = 64

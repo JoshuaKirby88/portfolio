@@ -4,6 +4,7 @@ import { Pause, Play, VolumeX } from "lucide-react"
 import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { StatusBadge } from "./status-badge"
 import { StatusDots } from "./status-dots"
 import { WhisperTranscript } from "./whisper-transcript"
 import {
@@ -65,6 +66,13 @@ export function WhisperAttack({
 				className="relative mx-auto w-full max-w-[500px] scroll-mt-6 rounded-xl border bg-card p-4 pt-10 text-sm [--attack-accent:#b74815] dark:[--attack-accent:#fb9b65]"
 				aria-label="Whisper attack"
 			>
+				<StatusBadge
+					steps={["Original audio", "Optimizing", "Modified audio"]}
+					duration={DURATION}
+					proportions={PHASE_PROPORTIONS}
+					transitionPercent={(PHASE_TRANSITION_MS / DURATION) * 100}
+					className="absolute top-4 left-4 motion-reduce:[&>span]:opacity-0! motion-reduce:[&>span:last-child]:opacity-100! motion-reduce:[&>span:last-child]:transform-none! motion-reduce:[&>span:last-child]:blur-none!"
+				/>
 				<StatusDots
 					duration={DURATION}
 					proportions={PHASE_PROPORTIONS}
@@ -169,11 +177,12 @@ function Recording({
 			<Button
 				type="button"
 				size="sm"
+				variant={type === "original" ? "outline" : "default"}
 				className={cn(
 					"rounded-full aria-pressed:text-background",
 					type === "modified"
 						? "border-(--attack-accent)/40 bg-(--attack-accent)/8 text-(--attack-accent) hover:border-(--attack-accent)/65 hover:bg-(--attack-accent)/14 hover:text-(--attack-accent) aria-pressed:border-(--attack-accent) aria-pressed:bg-(--attack-accent)"
-						: "border-muted-foreground/35 bg-transparent text-muted-foreground hover:bg-muted hover:text-muted-foreground aria-pressed:border-muted-foreground aria-pressed:bg-muted-foreground",
+						: "text-foreground aria-pressed:border-primary aria-pressed:bg-primary dark:aria-pressed:bg-primary",
 				)}
 				disabled={failed}
 				onClick={togglePlayback}
@@ -191,7 +200,7 @@ function Recording({
 				) : (
 					<Play className="size-3" fill="currentColor" aria-hidden="true" />
 				)}
-				{type === "original" ? "Source audio" : "Modified audio"}
+				{type === "original" ? "Original audio" : "Modified audio"}
 			</Button>
 		</div>
 	)

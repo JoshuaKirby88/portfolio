@@ -1,5 +1,5 @@
 import { useId } from "react"
-import { StatusDots } from "@/app/[project]/_components/status-dots"
+import { StatusDots } from "./status-dots"
 import { generateCycleCSS } from "@/lib/generate-cycle-css"
 import { cn } from "@/lib/utils"
 import { StatusBadge } from "./status-badge"
