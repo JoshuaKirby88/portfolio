@@ -7,5 +7,11 @@
 		"html_handling": "drop-trailing-slash",
 		"not_found_handling": "404-page"
 	},
+	"observability": {
+		"enabled": false,
+		"issues": { "enabled": false },
+		"logs": { "enabled": false },
+		"traces": { "enabled": false }
+	},
 	"routes": [{ "pattern": "joshuakirby.dev", "custom_domain": true }]
 }
