@@ -1,12 +1,11 @@
 import { DownloadIcon, LinkIcon, MailIcon } from "lucide-react"
 
 export const homeContent = {
-	tagline: `I build reliable AI products
-end to end.`,
+	tagline: "I build and evaluate ML systems.",
 	me: {
 		name: "Joshua Kirby",
 		bullets: [
-			"Full‑stack TypeScript / Next.js with LLM‑backed products",
+			"Applied ML, from experiments to production",
 			"Native in Japanese and English",
 		],
 		links: [
@@ -24,24 +23,7 @@ end to end.`,
 			},
 		],
 	},
-	description: "AI & CS student, class of 2027.",
-	workExperience: {
-		title: "Work Experience",
-		experiences: [
-			{
-				name: "GenkiJACS",
-				description: "Software Engineer",
-				duration: "Sep 2023 – Jun 2024",
-			},
-			{
-				name: "The HALO Trust",
-				description: "Technology Intern",
-				duration: "Dec 2021 – Apr 2023",
-			},
-		],
-	},
 	education: {
-		title: "Education",
 		educations: [
 			{
 				name: "University of Birmingham",
@@ -53,5 +35,5 @@ end to end.`,
 			},
 		],
 	},
-	featuredProjects: ["genkijacs", "attacking-whisper"],
+	featuredWork: ["attacking-whisper", "placement-test", "genkijacs"],
 }

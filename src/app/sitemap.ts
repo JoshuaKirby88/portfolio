@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next"
-import { projects } from "@/content/projects"
+import { caseStudies } from "@/content/work"
 
 export const dynamic = "force-static"
 
 export default function sitemap(): MetadataRoute.Sitemap {
 	const baseUrl = "https://joshuakirby.dev"
 
-	const projectUrls = projects.map((project) => ({
+	const projectUrls = caseStudies.map((project) => ({
 		url: `${baseUrl}/projects/${project.slug}`,
 		lastModified: new Date(project.lastModified),
 		changeFrequency: "monthly" as const,

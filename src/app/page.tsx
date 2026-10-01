@@ -1,6 +1,5 @@
 import {
 	ArrowRightIcon,
-	BriefcaseBusinessIcon,
 	CodeXmlIcon,
 	GraduationCapIcon,
 	SmileIcon,
@@ -10,23 +9,23 @@ import Link from "next/link"
 import ReactMarkdown from "react-markdown"
 import { buttonVariants } from "@/components/ui/button"
 import { homeContent } from "@/content/home"
-import { projects } from "@/content/projects"
+import { caseStudies } from "@/content/work"
 import { cn } from "@/lib/utils"
 
 export default function Page() {
-	const featuredProjects = projects.filter((project) =>
-		homeContent.featuredProjects.includes(project.slug),
+	const featuredWork = caseStudies.filter((project) =>
+		homeContent.featuredWork.includes(project.slug),
 	)
 
 	return (
-		<div>
+		<main>
 			<h1 className="mt-30 mb-10 whitespace-pre-wrap text-center font-semibold text-2xl">
 				{homeContent.tagline}
 			</h1>
 
 			<div className="container mx-auto max-w-4xl p-4">
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-10">
-					<BentoCell className="aspect-square p-0! md:col-span-5 md:col-start-6">
+					<BentoCell className="aspect-square p-0! md:aspect-auto md:col-span-5 md:col-start-6">
 						<div className="relative h-full w-full rounded-lg bg-background p-2.5">
 							<div className="relative h-full w-full overflow-hidden rounded-md">
 								<Image
@@ -79,112 +78,74 @@ export default function Page() {
 							</div>
 						</BentoCell>
 
-						<BentoCell className="h-full space-y-1.5">
-							{homeContent.description.split("\n").map((line) => (
-								<p
-									key={line}
-									className="whitespace-pre-wrap font-medium text-muted-foreground text-sm"
-								>
-									{line}
-								</p>
-							))}
-						</BentoCell>
+						{homeContent.education.educations.map((education) => (
+							<BentoCell key={education.name} className="h-full">
+								<div className="flex items-center gap-4">
+									<div className="flex size-10 shrink-0 items-center justify-center rounded-md border bg-background text-muted-foreground">
+										<GraduationCapIcon className="size-5" />
+									</div>
+									<h2 className="font-bold text-lg">{education.name}</h2>
+								</div>
+								<ul className="mt-4 space-y-1">
+									{education.bullets.map((bullet) => (
+										<li
+											key={bullet}
+											className="relative pl-4 font-medium text-muted-foreground text-sm"
+										>
+											<SmallBullet className="absolute top-[0.55em] left-0" />
+											{bullet}
+										</li>
+									))}
+								</ul>
+							</BentoCell>
+						))}
 					</div>
 
-					<BentoCell className="min-h-64 md:col-span-6">
-						<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
-							<BriefcaseBusinessIcon className="size-5" />
-						</div>
-						<p className="mt-4 font-bold text-lg">
-							{homeContent.workExperience.title}
-						</p>
-
-						<ul className="mt-4 space-y-3">
-							{homeContent.workExperience.experiences.map((experience) => (
-								<li key={experience.name} className="relative space-y-0.5 pl-5">
-									<BigBullet className="absolute top-[0.55em] left-0" />
-									<div className="flex items-baseline">
-										<p className="font-semibold">{experience.name}</p>
-										<p className="ml-auto font-medium text-muted-foreground text-sm">
-											{experience.duration}
-										</p>
-									</div>
-
-									<p className="font-medium text-muted-foreground text-sm">
-										{experience.description}
-									</p>
-								</li>
-							))}
-						</ul>
-					</BentoCell>
-					<BentoCell className="min-h-64 md:col-span-4">
-						<div className="flex size-10 items-center justify-center rounded-md border bg-background text-muted-foreground">
-							<GraduationCapIcon className="size-5" />
-						</div>
-						<p className="mt-4 font-bold text-lg">
-							{homeContent.education.title}
-						</p>
-
-						<ul className="mt-4 space-y-2">
-							{homeContent.education.educations.map((education) => (
-								<li key={education.name}>
-									<p className="font-semibold">{education.name}</p>
-									<ul className="mt-2 space-y-1">
-										{education.bullets.map((bullet) => (
-											<li
-												key={bullet}
-												className="relative pl-4 font-medium text-muted-foreground text-sm"
-											>
-												<SmallBullet className="absolute top-[0.55em] left-0" />
-												{bullet}
-											</li>
-										))}
-									</ul>
-								</li>
-							))}
-						</ul>
-					</BentoCell>
-
-					{featuredProjects.map((project) => (
-						<BentoCell
-							key={project.title}
-							className="flex flex-col md:col-span-5"
-						>
-							<p className="font-bold text-lg">{project.title}</p>
-							<ul className="mt-4 flex-1 space-y-1.5">
-								{project.bullets.map((bullet) => (
-									<li
-										key={bullet}
-										className="relative pl-4 font-medium text-muted-foreground text-sm"
-									>
-										<SmallBullet className="absolute top-[0.55em] left-0" />
-										<ReactMarkdown>{bullet}</ReactMarkdown>
-									</li>
-								))}
-							</ul>
-							<Link
-								href={`/projects/${project.slug}`}
-								prefetch
-								className={cn(
-									buttonVariants(),
-									"mt-5 ml-auto w-fit rounded-xl border-2 border-ring px-3.5 py-4.5",
-								)}
+					<section
+						aria-label="Selected work"
+						className="grid gap-4 md:col-span-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+					>
+						{featuredWork.map((project) => (
+							<BentoCell
+								key={project.slug}
+								className="flex flex-col p-4! lg:p-5! first:md:row-span-2"
 							>
-								Read Case Study
-							</Link>
-						</BentoCell>
-					))}
+								<h2 className="font-bold text-lg">{project.title}</h2>
+								<ul className="mt-4 flex-1 space-y-2">
+									{project.bullets.map((bullet) => (
+										<li
+											key={bullet}
+											className="relative pl-4 font-medium text-muted-foreground text-sm"
+										>
+											<SmallBullet className="absolute top-[0.55em] left-0" />
+											<ReactMarkdown>{bullet}</ReactMarkdown>
+										</li>
+									))}
+								</ul>
+								<Link
+									href={`/projects/${project.slug}`}
+									aria-label={`Read ${project.title} case study`}
+									className={cn(
+										buttonVariants(),
+										"mt-5 ml-auto w-fit rounded-xl border-2 border-ring px-3.5 py-4.5",
+									)}
+								>
+									Read Case Study
+								</Link>
+							</BentoCell>
+						))}
+					</section>
 					<BentoCell className="flex items-center justify-between gap-4 py-4 md:col-span-10 lg:py-4">
 						<p className="font-bold text-lg">More of my work</p>
 						<Link
 							href="/projects"
-							aria-label="View all projects"
+							aria-label="View all work"
 							className={cn(
-								buttonVariants(),
-								"rounded-xl border-2 border-ring px-3.5 py-4.5",
+								buttonVariants({ variant: "outline" }),
+								"rounded-xl px-3.5 py-4.5",
 							)}
 						>
-							View all
+							View all work
 							<ArrowRightIcon className="size-4" aria-hidden="true" />
 						</Link>
 					</BentoCell>
@@ -205,7 +166,7 @@ export default function Page() {
 					View site source
 				</Link>
 			</p>
-		</div>
+		</main>
 	)
 }
 
@@ -224,18 +185,6 @@ function BentoCell({
 		>
 			{children}
 		</div>
-	)
-}
-
-function BigBullet({ className, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			className={cn(
-				"mr-3 size-2 rounded-full bg-ring ring-2 ring-border ring-offset-1 ring-offset-card",
-				className,
-			)}
-			{...props}
-		/>
 	)
 }
 

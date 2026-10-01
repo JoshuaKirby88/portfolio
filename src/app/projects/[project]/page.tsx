@@ -14,7 +14,7 @@ import {
 	BreadcrumbList,
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { projects } from "@/content/projects"
+import { caseStudies } from "@/content/work"
 import { preprocessMarkdown } from "@/lib/preprocess-markdown"
 import { cn } from "@/lib/utils"
 import { AddConversationContext } from "./_components/add-conversation-context"
@@ -32,14 +32,14 @@ const tagsToProcess = ["macmail", "addconversationcontext", "macterminal"]
 export const dynamicParams = false
 
 export function generateStaticParams() {
-	return projects.map(({ slug }) => ({ project: slug }))
+	return caseStudies.map(({ slug }) => ({ project: slug }))
 }
 
 export async function generateMetadata(props: {
 	params: Promise<{ project: string }>
 }): Promise<Metadata> {
 	const params = await props.params
-	const project = projects.find((p) => p.slug === params.project)
+	const project = caseStudies.find((p) => p.slug === params.project)
 
 	if (!project) {
 		notFound()
@@ -77,7 +77,7 @@ export default async function Page(props: {
 	const params = await props.params
 	const project = params.project
 
-	if (!projects.some((p) => p.slug === project)) {
+	if (!caseStudies.some((p) => p.slug === project)) {
 		notFound()
 	}
 
@@ -111,7 +111,7 @@ export default async function Page(props: {
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
 							<BreadcrumbLink render={<Link href="/projects" />}>
-								Projects
+								My Work
 							</BreadcrumbLink>
 						</BreadcrumbItem>
 					</BreadcrumbList>
