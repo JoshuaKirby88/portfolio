@@ -3,6 +3,10 @@ import type { ReactNode } from "react"
 declare module "react" {
 	namespace JSX {
 		interface IntrinsicElements {
+			whisperattack: {
+				source: string
+				target: string
+			}
 			addkeywords: {
 				original: string
 				keywords: string

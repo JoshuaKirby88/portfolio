@@ -17,8 +17,9 @@ import { MacMail } from "./_components/mac-mail"
 import { MacTerminal } from "./_components/mac-terminal"
 import { ThemeImage } from "./_components/theme-image"
 import { WebsiteContentProcess } from "./_components/website-content-process"
+import { WhisperAttack } from "./_components/whisper-attack-lazy"
 
-const projects = ["genkijacs", "placement-test"]
+const projects = ["genkijacs", "placement-test", "attacking-whisper"]
 const tagsToProcess = ["macmail", "addconversationcontext", "macterminal"]
 
 export const dynamicParams = false
@@ -97,6 +98,9 @@ export default async function Page(props: {
 }
 
 const markdownComponents = {
+	whisperattack: ({ source, target }) => (
+		<WhisperAttack source={source} target={target} />
+	),
 	a: (props) => {
 		const isExternal = props.href?.startsWith("https://")
 		if (isExternal) {
