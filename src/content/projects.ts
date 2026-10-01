@@ -2,6 +2,8 @@ export const projects = [
 	{
 		title: "RAG Customer Support Chatbot",
 		slug: "genkijacs",
+		dates: "Sep 2023 – Jun 2024",
+		previewImage: "/projects/previews/genkijacs.webp",
 		image: "/projects/genkijacs.webp",
 		imageWidth: 1200,
 		imageHeight: 630,
@@ -17,6 +19,8 @@ export const projects = [
 	{
 		title: "AI Conversational Placement Test",
 		slug: "placement-test",
+		dates: "2024 – present",
+		previewImage: "/projects/previews/placement-test.webp",
 		image: "/projects/placement-test.webp",
 		imageWidth: 1200,
 		imageHeight: 620,
@@ -32,6 +36,8 @@ export const projects = [
 	{
 		title: "Attacking Whisper",
 		slug: "attacking-whisper",
+		dates: "Jul – Sep 2026",
+		previewImage: "/projects/previews/attacking-whisper.webp",
 		image: "/projects/attacking-whisper.webp",
 		imageWidth: 1200,
 		imageHeight: 630,
